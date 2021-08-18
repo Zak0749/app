@@ -1,0 +1,9 @@
+{
+  "name": "quiz-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Zak0749/quiz-app.git",
+  "author": "Zak0749",
+  "license": "MIT",
+  "private": true
+}

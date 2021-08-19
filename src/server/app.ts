@@ -13,7 +13,6 @@ import router from './routes/router';
 import db from './db/get';
 import getUser from './helpers/getUser';
 import { formQuizzes } from './helpers/form-quiz';
-import '';
 
 // Passport
 
@@ -61,7 +60,7 @@ app.use(passport.session());
 app.use(cookieParser());
 
 app.use(logger('dev'));
-app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(express.static(path.join(__dirname, '../client/build')));
 
 app.use(async (req, res, next) => {
   res.contentType('application/json');

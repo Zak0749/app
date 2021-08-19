@@ -1,0 +1,19 @@
+.tile {
+  font-size: 30px;
+  text-align: center;
+  background-color: var(--secondary-background);
+  padding: 50px 0 50px 0;
+  border-radius: 15px;
+  text-decoration: none;
+  margin-top: 50px;
+  margin-left: 15px;
+  margin-right: 15px;
+  color: black;
+}
+
+.grid {
+  display: grid;
+  margin-left: 10px;
+  margin-right: 10px;
+  grid-template-columns: repeat( auto-fit, minmax(250px, 1fr) );
+}

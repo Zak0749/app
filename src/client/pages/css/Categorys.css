@@ -1,0 +1,30 @@
+.tile {
+  font-size: 30px;
+  text-align: center;
+  color: var(--secondary-color);
+  background-color: var(--secondary-background);
+  padding: 35px 0 35px 0;
+  border-radius: 15px;
+  text-decoration: none;
+  margin: 7px;
+}
+
+.grid {
+  display: grid;
+  margin-top: 50px;
+  grid-template-columns: repeat( auto-fit, minmax(210px, 1fr) );
+}
+
+/* .tile {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  background-color: #2196F3;
+  padding: 10px;
+}
+.grid {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  font-size: 30px;
+  text-align: center;
+} */

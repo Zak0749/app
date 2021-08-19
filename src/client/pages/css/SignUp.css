@@ -1,0 +1,36 @@
+.signup input[type=text], input[type=password], input[type='email'] {
+  width: 100%;
+  padding: 12px 10px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid var(--secondary-background);
+  background-color: var(--primary-background);
+  color: var(--primary-color);
+  box-sizing: border-box;
+  font-size: 15px;
+}
+
+.signup .primary-button {
+  background-color: var(--submit-button);
+  color: white;
+  padding: 14px 20px;
+  font-size: 15px;
+  margin: 20px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+.signup .secondary-button {
+  background-color: var(--secondary-color);
+  color: white;
+  padding: 14px 20px;
+  font-size: 15px;
+  margin: 0 0 0 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+  text-decoration: none;
+  color: white;
+}

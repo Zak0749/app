@@ -1,0 +1,21 @@
+.user .emoji {
+  color: var(--primary-color);
+  text-align: center;
+  background-color: var(--secondary-background);
+  border-radius: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 300px;
+}
+
+.user .username {
+  color: var(--primary-color);
+  font-size: 30px;
+  padding-top: 10px;
+
+}
+
+.user .date {
+  color: var(--primary-color);
+  padding-top: 10px;
+}

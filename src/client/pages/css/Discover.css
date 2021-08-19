@@ -1,0 +1,4 @@
+.quiz-tile-row {
+  display: flex;
+  overflow-x: scroll;
+}

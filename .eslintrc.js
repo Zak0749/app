@@ -31,6 +31,9 @@ module.exports = {
     '@typescript-eslint/indent': [2, 2],
     'no-undef': 'off',
     'import/no-unresolved': 'off',
+    'react/jsx-uses-react': 'off',
+    'react/react-in-jsx-scope': 'off',
+    'react/jsx-filename-extension': [1, { extensions: ['.tsx', '.jsx'] }],
   },
 
   settings: {

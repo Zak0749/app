@@ -1,0 +1,9 @@
+node_modules
+yarn.lock
+build
+
+.env
+
+/certs
+nginx/certs/nginx-selfsigned.key
+nginx/certs/nginx-selfsigned.crt

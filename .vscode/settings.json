@@ -1,0 +1,22 @@
+{
+  "files.autoSave": "onFocusChange",
+  "files.autoSaveDelay": 0,
+  "typescript.format.enable": true,
+  "eslint.lintTask.enable": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "eslint.lintTask.options": ".eslintrc.js",
+  "debug.terminal.clearBeforeReusing": true,
+  "terminal.explorerKind": "external",
+  "terminal.integrated.fontSize": 11,
+
+  "typescript.preferences.quoteStyle": "single",
+  "git.ignoreLimitWarning": true,
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+}

@@ -1,15 +1,14 @@
 import express from 'express';
 import { ObjectId } from 'mongodb';
-import { quizType } from '../../../@types/types';
-import db from '../../../db/get';
-import { formQuiz } from '../../../helpers/form-quiz';
+import db from '../../db/get';
+import { formQuiz } from '../../helpers/form-quiz';
 
 const router = express.Router();
 
 router.get('/api/quiz/:id', async (req, res, next) => {
   try {
     const quizzes = await db.quizzes;
-    const quiz = await quizzes.findOne({ _id: new ObjectId(req.params.id) }) as quizType;
+    const quiz = await quizzes.findOne({ _id: new ObjectId(req.params.id) }) as quizcol;
 
     res.status(200).json(await formQuiz(quiz, req.currentUser));
   } catch (err) {

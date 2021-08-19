@@ -4,7 +4,7 @@ import app from '../../app';
 import db from '../../db/get';
 import { quizCredentials } from '../../helpers/createQuiz';
 
-async function inDb({ title }: anyObj) {
+async function inDb({ title }: any) {
   const quizzes = await db.quizzes;
   const quiz = await quizzes.findOne({ title });
   return !!quiz;
@@ -16,7 +16,7 @@ describe('INVALID', () => {
   keys.forEach((key) => {
     test(`request without ${key}`, async () => {
       const credentials = await quizCredentials();
-      const copy: anyObj = { ...credentials.use };
+      const copy: any = { ...credentials.use };
       copy[key] = undefined;
       const res = await credentials.request
         .post('/api/quiz')
@@ -28,7 +28,7 @@ describe('INVALID', () => {
 
     test(`request with wrong datatype for ${key}`, async () => {
       const credentials = await quizCredentials();
-      const copy: anyObj = { ...credentials.use };
+      const copy: any = { ...credentials.use };
       copy[key] = faker.datatype.array();
       const res = await credentials.request
         .post('/api/quiz')

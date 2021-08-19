@@ -1,7 +1,6 @@
 import express from 'express';
 import { ObjectId } from 'mongodb';
-import { historyType, quizType } from '../../../@types/types';
-import db from '../../../db/get';
+import db from '../../db/get';
 
 const router = express.Router();
 
@@ -13,14 +12,14 @@ router.post('/api/history', async (req, res, next) => {
     const quizzes = await db.quizzes;
 
     const user = req.currentUser;
-    const quiz = await quizzes.findOne({ _id: new ObjectId(req.body.quizId) }) as quizType;
+    const quiz = await quizzes.findOne({ _id: new ObjectId(req.body.quizId) }) as quizcol;
 
     if (!quiz) {
       res.sendStatus(400);
       return;
     }
 
-    const history:historyType = {
+    const history:historycol = {
       date: new Date(),
       quizId: new ObjectId(req.body.quizId),
       progress: req.body.progress,

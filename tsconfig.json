@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
     "typeRoots": [
-      "./src/@types",
+      "src/@types",
+      "node_modules/@types"
     ],
     /* Visit https://aka.ms/tsconfig.json to read more about this file */
 
@@ -18,7 +19,7 @@
     // "sourceMap": true,                           /* Generates corresponding '.map' file. */
     // "outFile": "./",                             /* Concatenate and emit output to single file. */
     "outDir": "./build/server",                              /* Redirect output structure to the directory. */
-    "rootDir": "./src/server",                             /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */
+    "rootDir": "src/server",                             /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */
     // "composite": true,                           /* Enable project compilation */
     // "tsBuildInfoFile": "./",                     /* Specify file to store incremental compilation information */
     // "removeComments": true,                      /* Do not emit comments to output. */
@@ -72,4 +73,7 @@
     "skipLibCheck": true,                           /* Skip type checking of declaration files. */
     "forceConsistentCasingInFileNames": true,        /* Disallow inconsistently-cased references to the same file. */
   },
+
+  "exclude": ["node_modules", "**/*.test.ts", "**/test", "**/types/ts"],
+  "include": ["src/server/**/*"],
 }

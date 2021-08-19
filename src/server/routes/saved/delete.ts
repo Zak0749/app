@@ -1,12 +1,12 @@
 import { ObjectId } from 'mongodb';
 import express from 'express';
 import db from '../../db/get';
-import onlyOn from '../../helpers/auth';
 
 const router = express.Router();
 
-router.delete('/api/saved', onlyOn.authenticated, async (req, res, next) => {
+router.delete('/api/saved', async (req, res, next) => {
   try {
+    if (!req.currentUser) { res.sendStatus(401); return; }
     const users = await db.users;
     const quizzes = await db.quizzes;
     const user = req.currentUser;

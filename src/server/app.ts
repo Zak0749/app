@@ -8,43 +8,14 @@ import { Strategy } from 'passport-local';
 import bcyrpt from 'bcrypt';
 import session from 'express-session';
 // import cors from 'cors';
+import dotenv from 'dotenv';
 import router from './routes/router';
 import db from './db/get';
 import getUser from './helpers/getUser';
 import { formQuizzes } from './helpers/form-quiz';
+import '';
 
 // Passport
-
-const app = express();
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-// app.use(cors({
-//   credentials: true,
-//   origin: ['http://nitetop.local:3000', 'http://localhost:3000'],
-// }));
-
-app.use(session({
-  secret: process.env.SESSION_SECRET!,
-  resave: true,
-  saveUninitialized: true,
-}));
-
-app.use(cookieParser(process.env.SESSION_SECRET));
-
-app.use(logger('dev'));
-app.use(express.static(path.join(__dirname, 'client/build')));
-
-app.use(passport.initialize());
-app.use(passport.session());
-
-app.use(async (req, res, next) => {
-  res.contentType('application/json');
-
-  req.currentUser = req.user as usercol | undefined;
-  next();
-});
 
 passport.use(new Strategy(async (username, password, done) => {
   try {
@@ -66,6 +37,37 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser(async (id, done) => {
   const user = await getUser(id as string);
   done(null, user);
+});
+
+const app = express();
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// app.use(cors({
+//   credentials: true,
+//   origin: ['http://nitetop.local:3000', 'http://localhost:3000'],
+// }));
+
+app.use(session({
+  secret: dotenv.config().parsed!['SESSION-SECRET'],
+  resave: true,
+  saveUninitialized: true,
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use(cookieParser());
+
+app.use(logger('dev'));
+app.use(express.static(path.join(__dirname, 'client/build')));
+
+app.use(async (req, res, next) => {
+  res.contentType('application/json');
+
+  req.currentUser = req.user as usercol | undefined;
+  next();
 });
 
 app.use(router);

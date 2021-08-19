@@ -2,7 +2,7 @@ import faker from 'faker';
 import supertest from 'supertest';
 import app from '../app';
 import db from '../db/get';
-import '../../@types/server';
+import '';
 
 async function createCategorys() {
   const categorys = await db.categorys;

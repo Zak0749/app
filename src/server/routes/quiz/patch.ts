@@ -1,7 +1,6 @@
 import { Router } from 'express';
 import { ObjectId } from 'mongodb';
-import { anyObj, categoryType, quizType } from '../../../@types/types';
-import db from '../../../db/get';
+import db from '../../db/get';
 
 const router = Router();
 
@@ -13,7 +12,7 @@ router.patch('/api/quiz', async (req, res, next) => {
     const categorys = await db.categorys;
 
     const session = req.currentUser;
-    const quiz = await quizzes.findOne({ _id: new ObjectId(req.body.quizId) }) as quizType;
+    const quiz = await quizzes.findOne({ _id: new ObjectId(req.body.quizId) }) as quizcol;
 
     if (!quiz) {
       res.sendStatus(400);
@@ -26,7 +25,7 @@ router.patch('/api/quiz', async (req, res, next) => {
     }
 
     if (req.body.categoryId) {
-      const category = await categorys.findOne({ _id: new ObjectId(req.body.categoryId) }) as categoryType;
+      const category = await categorys.findOne({ _id: new ObjectId(req.body.categoryId) }) as categorycol;
 
       if (!category) {
         res.sendStatus(400);

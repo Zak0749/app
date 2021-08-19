@@ -1,7 +1,6 @@
 import { Router } from 'express';
-import db from '../../../db/get';
-import { formQuiz } from '../../../helpers/form-quiz';
-import { quizType } from '../../../@types/types';
+import db from '../../db/get';
+import { formQuiz } from '../../helpers/form-quiz';
 
 const router = Router();
 
@@ -12,7 +11,7 @@ router.get('/api/saved', async (req, res, next) => {
     const quizzes = await db.quizzes;
 
     const saved = await Promise.all(req.currentUser.saved.map(async (element) => ({
-      quiz: await formQuiz((await quizzes.findOne({ _id: element.quizId }) as quizType), req.currentUser),
+      quiz: await formQuiz((await quizzes.findOne({ _id: element.quizId }) as quizcol), req.currentUser),
       date: element.date,
     })));
 

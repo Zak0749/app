@@ -1,12 +1,12 @@
 import faker from 'faker';
-import { ObjectId } from 'mongodb';
 import supertest from 'supertest';
+import { ObjectId } from 'mongodb';
 import app from '../../app';
 import db from '../../db/get';
 import { createQuiz } from '../../helpers/createQuiz';
 import { createSession } from '../../helpers/createSession';
 
-async function getWithUsername({ username }: anyObj) {
+async function getWithUsername({ username }: any) {
   const users = await db.users;
   const { _id } = await users.findOne({ username }) as { _id: ObjectId };
   return _id;

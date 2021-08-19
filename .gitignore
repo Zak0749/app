@@ -7,3 +7,5 @@ build
 /certs
 nginx/certs/nginx-selfsigned.key
 nginx/certs/nginx-selfsigned.crt
+
+.vscode

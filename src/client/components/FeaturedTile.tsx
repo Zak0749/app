@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import './css/FeaturedTile';
+import './css/FeaturedTile.css';
 
 const colors = [
   'blue',

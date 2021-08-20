@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import './css/QuizTile';
+import './css/QuizTile.css';
 
 function QuizTile({
   _id, title, emoji, username,

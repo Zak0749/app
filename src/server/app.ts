@@ -100,7 +100,7 @@ app.get('/api/loggedin', (req, res) => {
 
 app.use('*', (req, res) => {
   res.contentType('html');
-  res.sendFile(path.join(`${__dirname}/client/build/index.html`));
+  res.sendFile(path.join(`${__dirname}../client/build/index.html`));
 });
 
 app.use((req, _res, next) => {

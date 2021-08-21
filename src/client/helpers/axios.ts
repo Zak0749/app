@@ -1,7 +1,7 @@
 import Axios from 'axios';
 
 const Request = Axios.create({
-  baseURL: 'api',
+  baseURL: 'https://nitetop.local/api',
   withCredentials: true,
 });
 

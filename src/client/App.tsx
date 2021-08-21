@@ -15,6 +15,7 @@ import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import Session from './pages/Session';
 import NotFound from './pages/NotFound';
+import History from './pages/History';
 
 function App(): JSX.Element {
   const [loggedIn, setLoggedIn] = useState(false);

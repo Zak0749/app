@@ -140,9 +140,4 @@ declare global {
     title: string;
     quizzes: quiz[]
   }
-
-  type loggedIn = {
-    loggedIn: boolean;
-    setLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
-  }
 }

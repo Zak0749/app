@@ -38,7 +38,7 @@ function Search(): JSX.Element {
       try {
         const res = await Request({
           method: 'GET',
-          url: `http://nitetop.local/api/search/${evt.target.value}`,
+          url: `/search/${evt.target.value}`,
         });
         setResult(res.data);
       } catch (err) {

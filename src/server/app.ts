@@ -16,6 +16,8 @@ import { formQuizzes } from './helpers/form-quiz';
 
 // Passport
 
+const htmlPath = path.join(`${__dirname}../client/build/index.html`);
+
 passport.use(new Strategy(async (username, password, done) => {
   try {
     const users = await db.users;
@@ -60,7 +62,7 @@ app.use(passport.session());
 app.use(cookieParser());
 
 app.use(logger('dev'));
-app.use(express.static(path.join(__dirname, '../client/build')));
+app.use(express.static(htmlPath));
 
 app.use(async (req, res, next) => {
   res.contentType('application/json');
@@ -100,7 +102,7 @@ app.get('/api/loggedin', (req, res) => {
 
 app.use('*', (req, res) => {
   res.contentType('html');
-  res.sendFile(path.join(`${__dirname}../client/build/index.html`));
+  res.sendFile(htmlPath);
 });
 
 app.use((req, _res, next) => {

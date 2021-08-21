@@ -1,42 +1,42 @@
 import {
-  FaSafari, FaPlus, FaHistory, FaBookmark, FaList, FaSearch,
-} from 'react-icons/all';
+  ExploreRounded, AddRounded, HistoryRounded, BookmarkRounded, ListRounded, SearchRounded,
+} from '@material-ui/icons';
 
 const sideBarData = [
   {
     title: 'Discover',
     path: '/',
-    icon: <FaSafari />,
+    icon: <ExploreRounded />,
     className: 'nav-text',
     key: 1,
   }, {
     title: 'Create',
     path: '/create',
-    icon: <FaPlus />,
+    icon: <AddRounded />,
     className: 'nav-text',
     key: 2,
   }, {
     title: 'History',
     path: '/history',
-    icon: <FaHistory />,
+    icon: <HistoryRounded />,
     className: 'nav-text',
     key: 3,
   }, {
     title: 'Saved',
     path: '/saved',
-    icon: <FaBookmark />,
+    icon: <BookmarkRounded />,
     className: 'nav-text',
     key: 4,
   }, {
     title: 'Categorys',
     path: '/categorys',
-    icon: <FaList />,
+    icon: <ListRounded />,
     className: 'nav-text',
     key: 5,
   }, {
     title: 'Search',
     path: '/search',
-    icon: <FaSearch />,
+    icon: <SearchRounded />,
     className: 'nav-text',
     key: 6,
   },

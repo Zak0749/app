@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import {
-  IoClose, FaBars, FaUserAlt, FaChevronLeft,
-} from 'react-icons/all';
+  CloseRounded, MenuRounded, AccountCircleRounded, ChevronLeftRounded,
+} from '@material-ui/icons';
 import { Link, useHistory } from 'react-router-dom';
 import sideBarData from '../helpers/sidebar-data';
 import './css/Navbar.css';
@@ -20,18 +20,18 @@ function Navbar({ loggedIn }: loggedIn): JSX.Element {
       <div className="navbar">
         <div className="navbar-left">
           <div className="menu-bars">
-            <FaBars className="nav-bar-icon" onClick={showSideBar} fontWeight="bold" />
+            <MenuRounded className="nav-bar-icon" onClick={showSideBar} fontSize="large" />
           </div>
 
           <div className="back-button">
-            <FaChevronLeft className="nav-bar-icon" onClick={back} fontWeight="bold" />
+            <ChevronLeftRounded className="nav-bar-icon" onClick={back} fontSize="large" />
           </div>
         </div>
 
         <Link to={loggedIn ? '/session' : '/login'} className="user-icon">
           {
             loggedIn
-              ? <FaUserAlt className="nav-bar-icon" fontWeight="bold" />
+              ? <AccountCircleRounded className="nav-bar-icon" fontSize="large" />
               : <h3 className="login-button">Login</h3>
           }
         </Link>
@@ -41,7 +41,7 @@ function Navbar({ loggedIn }: loggedIn): JSX.Element {
         <ul className="nav-menu-items">
           <li className="navbar-toggle">
             <button type="button" className="menu-bars" onClick={showSideBar}>
-              <IoClose className="nav-bar-icon" />
+              <CloseRounded className="nav-bar-icon" fontSize="large" />
             </button>
           </li>
 

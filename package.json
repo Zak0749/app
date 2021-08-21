@@ -19,7 +19,6 @@
   "bugs": {
     "url": "https://github.com/Zak0749/quiz-app/issues"
   },
-  "homepage": "https://github.com/Zak0749/quiz-app#readme",
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
     "@types/cookie-parser": "^1.4.2",

@@ -4,13 +4,12 @@
       "src/@types",
       "node_modules/@types"
     ],
-    "target": "es5",
-    "module": "esnext",
-    "outDir": "./build/server",
-    "rootDir": "src/server",
+    "target": "ES3",                                /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018', 'ES2019', 'ES2020', 'ES2021', or 'ESNEXT'. */
+    "module": "commonjs",  
+    "rootDir": "src/server",         
+    "outDir": "build/server",
     "strict": true,
     "esModuleInterop": true,
-    "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "lib": [
       "dom",
@@ -23,16 +22,8 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
     "jsx": "react-jsx"
   },
-  "exclude": [
-    "node_modules",
-    "**/*.test.ts",
-    "**/test",
-    "**/types/ts"
-  ],
-  "include": [
-    "src/server/**/*"
-  ]
+
+  "exclude": ["node_modules", "**/*.test.ts", "src/client/**/*", "scripts/**/*",  "config/**/*", "jest.config.js", "build"]
 }

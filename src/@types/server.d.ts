@@ -1,5 +1,3 @@
-/* eslint-disable no-shadow */
-/* eslint-disable no-unused-vars */
 import { ObjectId } from 'mongodb';
 
 declare global {

@@ -44,5 +44,5 @@ module.exports = {
     },
   },
 
-  ignorePatterns: ['build/*', 'scripts/*', 'config/*'],
+  ignorePatterns: ['build/*', 'scripts/*', 'config/*', '**/*.d.ts'],
 };

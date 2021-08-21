@@ -16,7 +16,7 @@ import { formQuizzes } from './helpers/form-quiz';
 
 // Passport
 
-const htmlPath = path.join(`${__dirname}../client/build/index.html`);
+const htmlPath = path.join(`${__dirname}/../client/index.html`);
 
 passport.use(new Strategy(async (username, password, done) => {
   try {

@@ -43,15 +43,13 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// app.use(cors({
-//   credentials: true,
-//   origin: ['http://nitetop.local:3000', 'http://localhost:3000'],
-// }));
-
 app.use(session({
   secret: dotenv.config().parsed!['SESSION-SECRET'],
   resave: true,
   saveUninitialized: true,
+  cookie: {
+    sameSite: 'strict',
+  },
 }));
 
 app.use(passport.initialize());

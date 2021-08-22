@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 
-function editor({ draft }: {draft: draft}) : JSX.Element {
+function Editor({ draft }: {draft: draft}) : JSX.Element {
   return (
     <div className="page edior">
       <form>
@@ -10,4 +10,4 @@ function editor({ draft }: {draft: draft}) : JSX.Element {
   );
 }
 
-export default editor;
+export default Editor;

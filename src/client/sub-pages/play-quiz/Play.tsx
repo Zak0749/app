@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
 import { useState } from 'react';
-import { IoClose } from 'react-icons/io5';
+import { CloseRounded } from '@material-ui/icons';
 import '../css/play-quiz.css';
 import ScoreBar from './ScoreBar';
 import Finished from './Finished';
 import addId from '../../helpers/addId';
-import Request from '../../helpers/axios';
+import useAxios from '../../helpers/axios';
 
 function Question({ question, next }:{question: question, next: (arg:answer) => void}): JSX.Element {
   const [selectedAnswer, setAnswer] = useState<undefined | answer>(undefined);
@@ -61,27 +61,25 @@ function PlayQuiz({ quiz, setPlaying }:{quiz:quiz, setPlaying: React.Dispatch<Re
     setCounter(counter + 1);
   };
 
+  const [, post] = useAxios({
+    method: 'POST',
+    url: '/history',
+    data: {
+      progress: counter / quiz.questions.length,
+      quizId: quiz._id,
+    },
+  });
+
   const finish = async () => {
     setPlaying(false);
-    try {
-      await Request({
-        method: 'POST',
-        url: '/history',
-        data: {
-          progress: counter / quiz.questions.length,
-          quizId: quiz._id,
-        },
-      });
-    } catch {
-      //
-    }
+    post();
   };
 
   return (
     <div className="page play">
       <div className="menu">
         <h1 className="navigationTitle">{quiz.title}</h1>
-        <IoClose className="close" onClick={finish} />
+        <CloseRounded className="close" onClick={finish} />
 
       </div>
 

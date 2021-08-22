@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import './css/App.css';
 import Navbar from './components/Navbar';
-import Request from './helpers/axios';
+import { Request } from './helpers/axios';
 import Discover from './pages/Discover';
 import Create from './pages/Create';
 import Saved from './pages/Saved';
@@ -16,6 +16,7 @@ import SignUp from './pages/SignUp';
 import Session from './pages/Session';
 import NotFound from './pages/NotFound';
 import History from './pages/History';
+import loggedInContext from './helpers/logged-in-context';
 
 function App(): JSX.Element {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -32,26 +33,26 @@ function App(): JSX.Element {
   });
 
   return (
-    <>
+    <loggedInContext.Provider value={{ loggedIn, setLoggedIn }}>
       <Router>
-        <Navbar loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
+        <Navbar />
         <Switch>
           <Route path="/" exact component={Discover} />
           <Route path="/create" exact component={Create} />
           <Route path="/history" exact component={History} />
           <Route path="/saved" exact component={Saved} />
-          <Route path="/categorys" exact component={Categorys} />
+          <Route path="/categories" exact component={Categorys} />
           <Route path="/search" exact component={Search} />
           <Route path="/category/:id" exact component={Category} />
           <Route path="/quiz/:id" exact component={Quiz} />
           <Route path="/user/:id" exact component={User} />
-          <Route path="/login"><Login setLoggedIn={setLoggedIn} loggedIn={loggedIn} /></Route>
+          <Route path="/login"><Login /></Route>
           <Route path="/signup" exact component={SignUp} />
-          <Route path="/session"><Session setLoggedIn={setLoggedIn} loggedIn={loggedIn} /></Route>
+          <Route path="/session"><Session /></Route>
           <Route exact component={NotFound} />
         </Switch>
       </Router>
-    </>
+    </loggedInContext.Provider>
   );
 }
 

@@ -1,16 +1,17 @@
-import { useEffect, useState } from 'react';
+import Error from '../components/Error';
+import Loading from '../components/Loading';
 import QuizTile from '../components/QuizTile';
-import Request from '../helpers/axios';
+import useAxios from '../helpers/axios';
 import './css/Create.css';
 
-const blankDraft = {
-  title: '',
-  emoji: '',
-  description: '',
-  date: new Date(),
-  categoryId: '',
-  questions: [],
-};
+// const blankDraft = {
+//   title: '',
+//   emoji: '',
+//   description: '',
+//   date: new Date(),
+//   categoryId: '',
+//   questions: [],
+// };
 
 function DraftRow({
   _id, emoji, title, date,
@@ -28,66 +29,36 @@ function DraftRow({
 }
 
 function Create(): JSX.Element {
-  const [published, setPublished] = useState<quiz[] | undefined>();
-  const [drafts, setDrafts] = useState<draft[] | undefined>();
+  // const [published, setPublished] = useState<quiz[] | undefined>();
+  // const [drafts, setDrafts] = useState<draft[] | undefined>();
 
-  const refresh = () => {
-    (async () => {
-      try {
-        const res = await Request({
-          method: 'GET',
-          url: '/draft',
-        });
+  const [{ data: drafts, loading: draftLoading, error: draftError }] = useAxios<draft[]>({
+    method: 'GET',
+    url: '/draft',
+  });
 
-        setDrafts(res.data);
-      } catch {
-        //
-      }
-    })();
+  const [{ data: published, loading: publishedLoading, error: publishedError }] = useAxios<user>({
+    method: 'GET',
+    url: '/draft',
+  });
 
-    (async () => {
-      try {
-        const res = await Request({
-          method: 'GET',
-          url: '/session',
-        });
+  if (draftLoading || publishedLoading) {
+    return <Loading />;
+  }
 
-        const user = res.data as user;
-
-        setPublished(user.quizzes);
-      } catch {
-        //
-      }
-    })();
-  };
-
-  useEffect(() => {
-    refresh();
-  }, []);
-
-  const newDraft = async () => {
-    try {
-      await Request({
-        method: 'POST',
-        url: '/draft',
-        data: blankDraft,
-      });
-
-      refresh();
-    } catch {
-      //
-    }
-  };
+  if (draftError || publishedError) {
+    return <Error />;
+  }
 
   return (
     <div className="page">
       <div className="space-between-box">
         <h1 className="navigationTitle">Create</h1>
-        <button type="button" onClick={newDraft}>hi</button>
+        <button type="button">hi</button>
       </div>
 
       <h3>Published</h3>
-      <div>{published ? published.map(QuizTile) : <></>}</div>
+      <div>{published ? published.quizzes.map(QuizTile) : <></>}</div>
 
       <h3>Drafts</h3>
       <div>{drafts ? drafts.map(DraftRow) : <></>}</div>

@@ -1,20 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import Request from '../helpers/axios';
+import useAxios from '../helpers/axios';
+import loggedInContext from '../helpers/logged-in-context';
 import './css/Login.css';
 
-function Login({ setLoggedIn, loggedIn }:loggedIn): JSX.Element {
+function Login(): JSX.Element {
   const history = useHistory();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
 
+  const [, submit] = useAxios({
+    method: 'POST',
+    url: '/session',
+  }, { manual: true });
+
+  const { loggedIn, setLoggedIn } = useContext(loggedInContext);
+
   const handleSubmit = async (evt:React.FormEvent) => {
     evt.preventDefault();
     try {
-      await Request({
-        method: 'POST',
-        url: '/session',
+      await submit({
         data: {
           username,
           password,

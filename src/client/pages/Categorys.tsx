@@ -1,9 +1,8 @@
-import {
-  useState, useEffect,
-} from 'react';
 import './css/Categorys.css';
 import { Link } from 'react-router-dom';
-import Request from '../helpers/axios';
+import useAxios from '../helpers/axios';
+import Loading from '../components/Loading';
+import Error from '../components/Error';
 
 function CategoryTitle({ _id, title }: {_id:string, title:string}): JSX.Element {
   return (
@@ -14,21 +13,23 @@ function CategoryTitle({ _id, title }: {_id:string, title:string}): JSX.Element 
 }
 
 function Categorys(): JSX.Element {
-  const [categorys, setCategorys] = useState([] as {_id:string, title:string}[]);
+  const [{ data, loading, error }] = useAxios<{ _id: string, title: string }[]>({
+    method: 'GET',
+    url: '/categorys',
+  });
 
-  useEffect(() => {
-    (async () => {
-      const res = await Request({
-        method: 'GET',
-        url: '/categorys',
-      });
-      setCategorys(res.data);
-    })();
-  }, []);
+  if (loading) {
+    return <Loading />;
+  }
+
+  if (error) {
+    return <Error />;
+  }
+
   return (
     <div className="page">
       <h1 className="navigationTitle">Categorys</h1>
-      <div className="grid">{categorys.map((val) => CategoryTitle(val))}</div>
+      <div className="grid">{data.map((val) => CategoryTitle(val))}</div>
     </div>
   );
 }

@@ -1,6 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useContext } from 'react';
+import Error from '../components/Error';
+import Loading from '../components/Loading';
 import QuizTile from '../components/QuizTile';
-import Request from '../helpers/axios';
+import useAxios from '../helpers/axios';
+import loggedInContext from '../helpers/logged-in-context';
 import './css/History.css';
 
 type historyType = {
@@ -10,40 +13,37 @@ type historyType = {
 }
 
 function History(): JSX.Element {
-  const [history, setHistory] = useState<historyType[] | undefined>(undefined);
+  const [{ data, loading, error }] = useAxios<historyType[]>({
+    method: 'GET',
+    url: '/history',
+  });
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const res = await Request({
-          method: 'GET',
-          url: '/history',
-        });
+  const { loggedIn } = useContext(loggedInContext);
 
-        setHistory(res.data);
-      } catch {
-        //
-      }
-    })();
-  }, []);
+  const [, del] = useAxios({
+    method: 'DELETE',
+    url: '/history',
+  }, { manual: true });
 
   const clearHistory = async () => {
     try {
-      if (history) {
-        await Promise.all(history.map((his) => Request({
-          method: 'DELETE',
-          url: '/history',
-          data: {
-            quizId: his.quiz._id,
-          },
-        })));
-
-        setHistory([]);
-      }
+      Promise.all(data.map((history) => del({ data: { quizId: history.quiz._id } })));
     } catch {
       //
     }
   };
+
+  if (loading) {
+    return <Loading />;
+  }
+
+  if (error) {
+    return <Error />;
+  }
+
+  if (!loggedIn) {
+    return <div className="page">To access the ablity to store and see history you need to login</div>;
+  }
 
   return (
     <div className="page history">
@@ -52,7 +52,7 @@ function History(): JSX.Element {
         <button type="button" className="clear-button" onClick={clearHistory}>Clear History</button>
       </div>
 
-      <div className="grid">{history ? history.map((item) => QuizTile(item.quiz)) : <></>}</div>
+      <div className="grid">{data.map((item) => QuizTile(item.quiz))}</div>
     </div>
   );
 }

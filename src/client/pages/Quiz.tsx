@@ -1,114 +1,112 @@
-import { useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import './css/Quiz.css';
-import { BsBookmarkFill, BsBookmark } from 'react-icons/bs';
-import Request from '../helpers/axios';
+import { Bookmark, BookmarkBorder } from '@material-ui/icons';
+import useAxios from '../helpers/axios';
 import Play from '../sub-pages/play-quiz/Play';
+import Loading from '../components/Loading';
+import Error from '../components/Error';
+import loggedInContext from '../helpers/logged-in-context';
 
 function Quiz(): JSX.Element {
-  const [quiz, setQuiz] = useState<quiz | undefined>(undefined);
   const [playing, setPlaying] = useState(false);
-  const { id } = useParams() as {id:string};
+  const { id } = useParams() as { id: string };
+  const [{ data, loading, error }, reload] = useAxios<quiz>({
+    method: 'GET',
+    url: `/quiz/${id}`,
+  });
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const res = await Request({
-          method: 'GET',
-          url: `/quiz/${id}`,
-        });
+  const { loggedIn } = useContext(loggedInContext);
 
-        setQuiz(res.data);
-      } catch (err) {
-        //
-      }
-    })();
-  }, []);
+  const [, save] = useAxios({
+    method: 'POST',
+    url: '/saved',
+  }, { manual: true });
+
+  const [, del] = useAxios({
+    method: 'DELETE',
+    url: '/saved',
+  }, { manual: true });
 
   const saveQuiz = async () => {
-    if (quiz) {
-      try {
-        await Request({
-          method: 'POST',
-          url: '/saved',
-          data: {
-            quizId: quiz._id,
-          },
-        });
+    try {
+      await save({
+        data: {
+          quizId: data._id,
+        },
+      });
 
-        setQuiz({
-          ...quiz,
-          saved: true,
-        });
-      } catch {
-        //
-      }
+      reload();
+    } catch {
+      //
     }
   };
 
-  const unsavedQuiz = async () => {
-    if (quiz) {
-      try {
-        await Request({
-          method: 'DELETE',
-          url: '/saved',
-          data: {
-            quizId: quiz._id,
-          },
-        });
+  const unsaveQuiz = async () => {
+    try {
+      await del({
+        data: {
+          quizId: data._id,
+        },
+      });
 
-        setQuiz({
-          ...quiz,
-          saved: false,
-        });
-      } catch {
-        //
-      }
+      reload();
+    } catch {
+      //
     }
   };
+
+  if (loading) {
+    return <Loading />;
+  }
+
+  if (error) {
+    return <Error />;
+  }
+
+  const SaveButton = data.saved ? <Bookmark className="bookmark-fill" onClick={unsaveQuiz} /> : <BookmarkBorder className="bookmark" onClick={saveQuiz} />;
 
   return (
     <>
       {
         playing
-          ? <Play quiz={quiz} setPlaying={setPlaying} />
+          ? <Play quiz={data} setPlaying={setPlaying} />
           : (
             <div className="page limit">
-              <div className="quiz-emoji">{quiz?.emoji}</div>
+              <div className="quiz-emoji">{data.emoji}</div>
               <div className="space-between-box">
-                <div className="quiz-title">{quiz?.title}</div>
+                <div className="quiz-title">{data.title}</div>
                 <div className="quiz-plays">
-                  {quiz?.plays}
+                  {data?.plays}
                   {' '}
                   plays
                 </div>
               </div>
               <div className="space-between-box">
-                <Link to={`/user/${quiz?.userId}`} className="quiz-username">{quiz?.username}</Link>
-                <Link to={`/category/${quiz?.categoryId}`} className="quiz-category">{quiz?.categoryTitle}</Link>
+                <Link to={`/user/${data?.userId}`} className="quiz-username">{data.username}</Link>
+                <Link to={`/category/${data?.categoryId}`} className="quiz-category">{data.categoryTitle}</Link>
               </div>
 
               <div className="quiz-date">
                 Posted
                 {' '}
-                {quiz ? new Date(quiz.date).toDateString() : ''}
+                {new Date(data.date).toDateString()}
               </div>
 
-              <div className="quiz-description">{quiz?.description}</div>
+              <div className="quiz-description">{data.description}</div>
 
               <div className="space-between-box">
                 <div className="quiz-questionCount">
                   There are
                   {' '}
-                  {quiz?.questions.length}
+                  {data.questions.length}
                   {' '}
                   questions
                 </div>
 
                 <div className="save">
                   {
-                    quiz?.saved ? <BsBookmarkFill className="bookmark-fill" onClick={unsavedQuiz} /> : <BsBookmark className="bookmark" onClick={saveQuiz} />
-
+                    loggedIn ? SaveButton : <></>
                   }
                 </div>
               </div>

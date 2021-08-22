@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import './css/Search.css';
 import { Link } from 'react-router-dom';
-import Request from '../helpers/axios';
+import useAxios from '../helpers/axios';
 import QuizItem from '../components/QuizItem';
+import Error from '../components/Error';
+import Loading from '../components/Loading';
 
 function userItem({
   username, emoji, userId, quizzes,
@@ -30,53 +32,45 @@ function userItem({
 
 function Search(): JSX.Element {
   const [term, setTerm] = useState('');
-  const [result, setResult] = useState<searchResult | undefined>();
+  const [{ data, loading, error }] = useAxios<searchResult>({
+    method: 'GET',
+    url: `/search/${term}`,
+  });
 
-  async function makeSearch(evt:React.ChangeEvent<HTMLInputElement>): Promise<void> {
-    setTerm(evt.target.value);
-    if (evt.target.value !== '') {
-      try {
-        const res = await Request({
-          method: 'GET',
-          url: `/search/${evt.target.value}`,
-        });
-        setResult(res.data);
-      } catch (err) {
-        // handle
-      }
-    }
+  if (error) {
+    return <Error />;
   }
 
   return (
     <div className="page">
       <h1 className="navigationTitle">Search</h1>
 
-      <input type="search" className="search-search-bar" name="search" value={term} onChange={makeSearch} />
-
+      <input type="search" className="search-search-bar" name="search" value={term} onChange={(e) => setTerm(e.target.value)} />
       {
-        result === undefined
-          ? <></> : (
+        loading ? <Loading />
+          : (
             <div>
               {
-                result?.quizzes.length === 0
+                data.quizzes.length === 0
                   ? <></> : <h3 className="search-title">Quizzes</h3>
               }
 
               {
-                result?.quizzes.map((quiz) => QuizItem(quiz))
+                data.quizzes.map((quiz) => QuizItem(quiz))
               }
 
               {
-                result?.users.length === 0
+                data.users.length === 0
                   ? <></> : <h3 className="search-title">Users</h3>
               }
 
               {
-                result?.users.map((user) => userItem(user))
+                data.users.map((user) => userItem(user))
               }
             </div>
           )
       }
+
     </div>
   );
 }

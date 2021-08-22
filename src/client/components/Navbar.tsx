@@ -1,12 +1,13 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import {
   CloseRounded, MenuRounded, AccountCircleRounded, ChevronLeftRounded,
 } from '@material-ui/icons';
 import { Link, useHistory } from 'react-router-dom';
 import sideBarData from '../helpers/sidebar-data';
 import './css/Navbar.css';
+import loggedInContext from '../helpers/logged-in-context';
 
-function Navbar({ loggedIn }: loggedIn): JSX.Element {
+function Navbar(): JSX.Element {
   const [sidebar, setSidebar] = useState(false);
   const history = useHistory();
 
@@ -14,6 +15,8 @@ function Navbar({ loggedIn }: loggedIn): JSX.Element {
   const back = () => {
     history.goBack();
   };
+
+  const { loggedIn } = useContext(loggedInContext);
 
   return (
     <>

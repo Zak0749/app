@@ -28,8 +28,8 @@ const sideBarData = [
     className: 'nav-text',
     key: 4,
   }, {
-    title: 'Categorys',
-    path: '/categorys',
+    title: 'Categories',
+    path: '/categories',
     icon: <ListRounded />,
     className: 'nav-text',
     key: 5,

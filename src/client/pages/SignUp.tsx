@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import Request from '../helpers/axios';
+import useAxios from '../helpers/axios';
 import './css/SignUp.css';
 
 function SignUp(): JSX.Element {
@@ -13,16 +13,18 @@ function SignUp(): JSX.Element {
   const [emoji, setEmoji] = useState('');
   const [error, setError] = useState<boolean>(false);
 
+  const [, post] = useAxios({
+    method: 'post',
+    url: '/user',
+    data: {
+      username, email, password, emoji,
+    },
+  }, { manual: false });
+
   const handleSubmit = async (evt:React.FormEvent) => {
     evt.preventDefault();
     try {
-      const res = await Request({
-        method: 'post',
-        url: '/user',
-        data: {
-          username, email, password, emoji,
-        },
-      });
+      const res = await post();
 
       if (res.status === 201) {
         history.push('/login');

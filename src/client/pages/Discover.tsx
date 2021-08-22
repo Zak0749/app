@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
+import Error from '../components/Error';
 import FeaturedTile from '../components/FeaturedTile';
+import Loading from '../components/Loading';
 import QuizTile from '../components/QuizTile';
-import Request from '../helpers/axios';
+import useAxios from '../helpers/axios';
 import './css/Discover.css';
 
 type DisoverData = {
@@ -33,38 +34,35 @@ function FeaturedRow({ quizzes }: {quizzes: quiz[] | undefined}): JSX.Element {
 }
 
 function Discover(): JSX.Element {
-  const [discover, setDiscover] = useState<DisoverData | undefined>(undefined);
+  const [{ data, loading, error }] = useAxios<DisoverData>({
+    method: 'GET',
+    url: '/discover',
+  });
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const res = await Request({
-          method: 'GET',
-          url: '/discover',
-        });
+  if (loading) {
+    return <Loading />;
+  }
 
-        setDiscover(res.data);
-      } catch {
-        //
-      }
-    })();
-  }, []);
+  if (error) {
+    return <Error />;
+  }
+
   return (
     <div className="page discover">
       <h1 className="navigationTitle">Discover</h1>
       <h2>Featured</h2>
-      <FeaturedRow quizzes={discover?.featured} />
+      <FeaturedRow quizzes={data.featured} />
       {
-        discover?.forYou
+        data.forYou
           ? (
             <div className="forYou">
               <h2>ForYou</h2>
-              <QuizRow quizzes={discover.forYou} />
+              <QuizRow quizzes={data.forYou} />
             </div>
           ) : <></>
       }
       <h2>Popular</h2>
-      <QuizRow quizzes={discover?.popular} />
+      <QuizRow quizzes={data.popular} />
     </div>
   );
 }

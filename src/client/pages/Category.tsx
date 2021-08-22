@@ -1,31 +1,30 @@
-import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import Error from '../components/Error';
+import Loading from '../components/Loading';
 import QuizTile from '../components/QuizTile';
+import useAxios from '../helpers/axios';
 import './css/Category.css';
-import Request from '../helpers/axios';
 
 function Category(): JSX.Element {
-  const [category, setCategory] = useState<category | undefined>(undefined);
   const { id } = useParams() as {id:string};
-  useEffect(() => {
-    (async () => {
-      try {
-        const res = await Request({
-          method: 'GET',
-          url: `/category/${id}`,
-        });
-        setCategory(res.data);
-      } catch (err) {
-        // console.log(err);
-      }
-    })();
-  }, []);
+  const [{ data, loading, error }] = useAxios<category>({
+    method: 'GET',
+    url: `/category/${id}`,
+  });
+
+  if (loading) {
+    return <Loading />;
+  }
+
+  if (error) {
+    return <Error />;
+  }
 
   return (
     <div className="page">
-      <h1 className="navigationTitle">{category?.title}</h1>
+      <h1 className="navigationTitle">{data?.title}</h1>
       <div className="grid">
-        {category?.quizzes.map((quiz) => QuizTile(quiz))}
+        {data.quizzes.map((quiz) => QuizTile(quiz))}
       </div>
     </div>
   );

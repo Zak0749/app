@@ -1,6 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useContext } from 'react';
+import Error from '../components/Error';
+import Loading from '../components/Loading';
 import QuizTile from '../components/QuizTile';
-import Request from '../helpers/axios';
+import useAxios from '../helpers/axios';
+import loggedInContext from '../helpers/logged-in-context';
 import './css/Saved.css';
 
 type savedType = {
@@ -9,28 +12,30 @@ type savedType = {
 }
 
 function Saved(): JSX.Element {
-  const [saved, setSaved] = useState<savedType[] | undefined>(undefined);
+  const [{ data, loading, error }] = useAxios<savedType[]>({
+    method: 'GET',
+    url: '/saved',
+  });
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const res = await Request({
-          method: 'GET',
-          url: '/saved',
-        });
+  const { loggedIn } = useContext(loggedInContext);
 
-        setSaved(res.data);
-      } catch {
-        //
-      }
-    })();
-  }, []);
+  if (loading) {
+    return <Loading />;
+  }
+
+  if (error) {
+    return <Error />;
+  }
+
+  if (!loggedIn) {
+    return <div className="page">To access the ablity to save quizzes you need to login</div>;
+  }
 
   return (
     <div className="page saved">
       <h1 className="navigationTitle">Saved</h1>
 
-      <div className="grid">{saved ? saved.map((item) => QuizTile(item.quiz)) : <></>}</div>
+      <div className="grid">{data.map((item) => QuizTile(item.quiz))}</div>
     </div>
   );
 }

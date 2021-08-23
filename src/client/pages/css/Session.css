@@ -19,3 +19,14 @@
   color: var(--primary-color);
   padding-top: 10px;
 }
+
+.session .logout {
+  background-color: var(--submit-button);
+  color: white;
+  padding: 14px 20px;
+  font-size: 15px;
+  margin: 20px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}

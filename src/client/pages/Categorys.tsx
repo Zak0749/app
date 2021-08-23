@@ -27,7 +27,7 @@ function Categorys(): JSX.Element {
   }
 
   return (
-    <div className="page">
+    <div className="page categories">
       <h1 className="navigationTitle">Categorys</h1>
       <div className="grid">{data.map((val) => CategoryTitle(val))}</div>
     </div>

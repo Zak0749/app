@@ -21,7 +21,7 @@ function Category(): JSX.Element {
   }
 
   return (
-    <div className="page">
+    <div className="page category">
       <h1 className="navigationTitle">{data?.title}</h1>
       <div className="grid">
         {data.quizzes.map((quiz) => QuizTile(quiz))}

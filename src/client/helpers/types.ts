@@ -1,3 +1,3 @@
-import '../../@types/server';
+import '../../@types/index';
 
 export {};

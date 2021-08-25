@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import Error from '../components/Error';
 import Loading from '../components/Loading';
 import QuizTile from '../components/QuizTile';
@@ -54,7 +55,7 @@ function Create(): JSX.Element {
     <div className="page">
       <div className="space-between-box">
         <h1 className="navigationTitle">Create</h1>
-        <button type="button">hi</button>
+        <Link to="/new">new</Link>
       </div>
 
       <h3>Published</h3>

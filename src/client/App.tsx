@@ -17,6 +17,7 @@ import Session from './pages/Session';
 import NotFound from './pages/NotFound';
 import History from './pages/History';
 import loggedInContext from './helpers/logged-in-context';
+import New from './pages/New';
 
 function App(): JSX.Element {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -39,6 +40,7 @@ function App(): JSX.Element {
         <Switch>
           <Route path="/" exact component={Discover} />
           <Route path="/create" exact component={Create} />
+          <Route path="/new" exact component={New} />
           <Route path="/history" exact component={History} />
           <Route path="/saved" exact component={Saved} />
           <Route path="/categories" exact component={Categorys} />

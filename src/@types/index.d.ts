@@ -140,4 +140,14 @@ declare global {
     title: string;
     quizzes: quiz[]
   }
+
+  type editing = {
+    title: string,
+    emoji: string,
+    description: string,
+    categoryId: string,
+    questions: question[],
+  }
 }
+
+export {};

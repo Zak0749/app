@@ -1,12 +1,12 @@
 import faker from 'faker';
 import supertest from 'supertest';
+import { CategoryCol } from '../..';
 import app from '../app';
 import db from '../db/get';
-import '';
 
 async function createCategorys() {
   const categorys = await db.categorys;
-  const insert: categorycol[] = [{ title: faker.lorem.word() }];
+  const insert: CategoryCol[] = [{ title: faker.lorem.word() }];
 
   for (let index = 0; index < faker.datatype.number(10); index += 1) {
     insert.push({ title: faker.lorem.word() });

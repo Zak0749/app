@@ -1,14 +1,17 @@
+import {
+  CategoryCol, Quiz, QuizCol, UserCol,
+} from '../..';
 import db from '../db/get';
 
-async function formQuiz(quiz:quizcol, session: usercol | undefined): Promise<quiz> {
+async function formQuiz(quiz:QuizCol, session: UserCol | undefined): Promise<Quiz> {
   const categorys = await db.categorys;
   const users = await db.users;
 
   if (!quiz) {
     throw Error('quiz is null');
   }
-  const category = await categorys.findOne({ _id: quiz.categoryId }) as categorycol;
-  const createdUser = await users.findOne({ _id: quiz.userId }) as usercol;
+  const category = await categorys.findOne({ _id: quiz.categoryId }) as CategoryCol;
+  const createdUser = await users.findOne({ _id: quiz.userId }) as UserCol;
 
   let progress = 0;
   let saved = false;
@@ -55,7 +58,7 @@ async function formQuiz(quiz:quizcol, session: usercol | undefined): Promise<qui
   };
 }
 
-function formQuizzes(quizzes:quizcol[], session: usercol | undefined): Promise<quiz[]> {
+function formQuizzes(quizzes:QuizCol[], session: UserCol | undefined): Promise<Quiz[]> {
   return Promise.all(quizzes.map((quiz) => formQuiz(quiz, session)));
 }
 

@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { QuizCol, UserCol } from '../..';
 import db from '../db/get';
 import { formQuizzes } from '../helpers/form-quiz';
 import { formUsers } from '../helpers/form-user';
@@ -17,20 +18,20 @@ router.get('/api/search/:term', async (req, res, next) => {
       .sort({ score: { $meta: 'textScore' } })
       .project({ score: { $meta: 'textScore' } })
       .limit(20)
-      .toArray() as quizcol[];
+      .toArray() as QuizCol[];
 
     const users = await usersCollection
       .find({ $text: { $search: req.params.term } })
       .sort({ score: { $meta: 'textScore' } })
       .project({ score: { $meta: 'textScore' } })
       .limit(20)
-      .toArray() as usercol[];
+      .toArray() as UserCol[];
 
     res.status(200).json({
       users: await formUsers(users, session),
       quizzes: await formQuizzes(quizzes, session),
     });
-  } catch (error) {
+  } catch (error:any) {
     next(error);
   }
 });

@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { ObjectId } from 'mongodb';
+import { CategoryCol, DraftCol } from '../../..';
 import db from '../../db/get';
 import onlyOn from '../../helpers/auth';
 
@@ -24,7 +25,7 @@ router.patch('/api/draft', onlyOn.authenticated, async (req, res, next) => {
     }
 
     if (req.body.categoryId) {
-      const category = await categorys.findOne({ _id: new ObjectId(req.body.categoryId) }) as categorycol;
+      const category = await categorys.findOne({ _id: new ObjectId(req.body.categoryId) }) as CategoryCol;
 
       if (!category) {
         res.sendStatus(400);
@@ -32,7 +33,7 @@ router.patch('/api/draft', onlyOn.authenticated, async (req, res, next) => {
       }
     }
 
-    const updated: draftcol = {
+    const updated: DraftCol = {
       _id: new ObjectId(draft._id),
       title: req.body.title || draft.title,
       emoji: req.body.emoji || draft.emoji,
@@ -46,7 +47,7 @@ router.patch('/api/draft', onlyOn.authenticated, async (req, res, next) => {
 
     users.updateOne({ _id: new ObjectId(session._id) }, { $set: { drafts } });
     res.sendStatus(200);
-  } catch (error) {
+  } catch (error:any) {
     if (error.message === 'Argument passed in must be a Buffer or string of 12 bytes or a string of 24 hex characters') {
       res.sendStatus(400);
       return;

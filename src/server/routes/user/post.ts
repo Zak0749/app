@@ -1,6 +1,7 @@
 import express from 'express';
 import bcrypt from 'bcrypt';
 import db from '../../db/get';
+import { UserCol } from '../../..';
 
 const router = express.Router();
 
@@ -10,7 +11,7 @@ router.post('/api/user', async (req, res, next) => {
 
     const password = await bcrypt.hash(req.body.password, 10);
 
-    const user: usercol = {
+    const user: UserCol = {
       ...req.body,
       date: new Date(),
       password,
@@ -21,7 +22,7 @@ router.post('/api/user', async (req, res, next) => {
 
     await users.insertOne(user);
     res.sendStatus(201);
-  } catch (error) {
+  } catch (error:any) {
     if (error.code === 121 || error.code === 11000 || error.toString() === 'Error: data must be a string or Buffer and salt must either be a salt string or a number of rounds' || error.toString() === 'Error: data and salt arguments required') {
       res.status(400).json(error);
       return;

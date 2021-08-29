@@ -7,29 +7,27 @@ import passport from 'passport';
 import { Strategy } from 'passport-local';
 import bcyrpt from 'bcrypt';
 import session from 'express-session';
-// import cors from 'cors';
 import dotenv from 'dotenv';
 import router from './routes/router';
 import db from './db/get';
 import getUser from './helpers/getUser';
 import { formQuizzes } from './helpers/form-quiz';
-
-// Passport
+import { QuizCol, UserCol } from '..';
 
 passport.use(new Strategy(async (username, password, done) => {
   try {
     const users = await db.users;
-    const user = await users.findOne({ username }) as usercol;
+    const user = await users.findOne({ username }) as UserCol;
     if (!user) return done(null, false);
     if (!await bcyrpt.compare(password, user.password)) return done(null, false);
     return done(null, user);
-  } catch (error) {
+  } catch (error:any) {
     return done(error);
   }
 }));
 
 passport.serializeUser((user, done) => {
-  const id = (user as usercol)._id.toHexString();
+  const id = (user as UserCol)._id.toHexString();
   done(null, id);
 });
 
@@ -64,7 +62,7 @@ app.use(express.static('public'));
 app.use(async (req, res, next) => {
   res.contentType('application/json');
 
-  req.currentUser = req.user as usercol | undefined;
+  req.currentUser = req.user as UserCol | undefined;
   next();
 });
 
@@ -82,7 +80,7 @@ app.delete('/api/session', (req, res) => {
 
 app.get('/api/session', async (req, res) => {
   const quizCol = await db.quizzes;
-  const quizzes = await quizCol.find({ username: req.currentUser?.username }).toArray() as quizcol[];
+  const quizzes = await quizCol.find({ username: req.currentUser?.username }).toArray() as QuizCol[];
   if (!req.currentUser) { res.sendStatus(401); return; }
   res.status(200).json({
     username: req.currentUser.username,

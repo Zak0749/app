@@ -1,10 +1,11 @@
 import faker from 'faker';
 import supertest from 'supertest';
+import { AnyObj } from '../../..';
 import app from '../../app';
 import db from '../../db/get';
 import { userCredentials } from '../../helpers/createUser';
 
-async function inDb(sent: anyObj) {
+async function inDb(sent: AnyObj) {
   const users = await db.users;
   const user = await users.findOne({ username: sent.username, email: sent.email });
   return !!user;
@@ -16,7 +17,7 @@ describe('INVALID', () => {
   keys.forEach((key) => {
     test(`request without ${key}`, async () => {
       const user = userCredentials().use;
-      const copy:anyObj = { ...user };
+      const copy:AnyObj = { ...user };
       copy[key] = undefined;
       const res = await supertest(app)
         .post('/api/user')
@@ -29,7 +30,7 @@ describe('INVALID', () => {
 
     test(`request with wrong datatype for ${key}`, async () => {
       const user = userCredentials().use;
-      const copy:anyObj = { ...user };
+      const copy:AnyObj = { ...user };
       copy[key] = faker.datatype.array();
       const res = await supertest(app)
         .post('/api/user')

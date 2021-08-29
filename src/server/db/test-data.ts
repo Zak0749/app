@@ -8,7 +8,7 @@ async function testData(): Promise<void> {
     try {
       createQuiz();
       console.log(`quiz#${i}`);
-    } catch (error) {
+    } catch (error:any) {
       console.error(error);
     }
   }

@@ -3,8 +3,9 @@ import supertest from 'supertest';
 import db from '../../db/get';
 import app from '../../app';
 import { createSession } from '../../helpers/createSession';
+import { AnyObj } from '../../..';
 
-async function inDb(sent: anyObj) {
+async function inDb(sent: AnyObj) {
   const users = await db.users;
   const user = await users.findOne({ username: sent.username, email: sent.email });
   return !!user;

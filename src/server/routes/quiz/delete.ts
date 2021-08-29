@@ -1,5 +1,6 @@
 import express from 'express';
 import { ObjectId } from 'mongodb';
+import { QuizCol } from '../../..';
 import db from '../../db/get';
 
 const router = express.Router();
@@ -14,7 +15,7 @@ router.delete('/api/quiz', async (req, res, next) => {
       return;
     }
 
-    const quiz = await quizzes.findOne({ _id: new ObjectId(req.body.quizId) }) as quizcol;
+    const quiz = await quizzes.findOne({ _id: new ObjectId(req.body.quizId) }) as QuizCol;
 
     if (!quiz) {
       res.sendStatus(400);
@@ -28,7 +29,7 @@ router.delete('/api/quiz', async (req, res, next) => {
 
     await quizzes.deleteOne({ _id: new ObjectId(req.body.quizId) });
     res.sendStatus(200);
-  } catch (err) {
+  } catch (err:any) {
     if (err.message === "Cannot read property 'toString' of undefined"
         || err.message === 'Argument passed in must be a Buffer or string of 12 bytes or a string of 24 hex characters') {
       res.sendStatus(400);

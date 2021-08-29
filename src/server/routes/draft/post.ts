@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { ObjectId } from 'mongodb';
+import { CategoryCol } from '../../..';
 import db from '../../db/get';
 import onlyOn from '../../helpers/auth';
 
@@ -18,7 +19,7 @@ router.post('/api/draft', onlyOn.authenticated, async (req, res, next) => {
 
     const category = await categorys.findOne(
       { _id: new ObjectId(req.body.categoryId) },
-    ) as categorycol;
+    ) as CategoryCol;
 
     if (!category) {
       res.sendStatus(400);
@@ -37,7 +38,7 @@ router.post('/api/draft', onlyOn.authenticated, async (req, res, next) => {
 
     await users.updateOne({ _id: new ObjectId(session._id) }, { $push: { drafts: draft } });
     res.sendStatus(201);
-  } catch (err) {
+  } catch (err:any) {
     if (err.code === 121 || err.message === 'Argument passed in must be a Buffer or string of 12 bytes or a string of 24 hex characters'
         || err.message === "Cannot read property 'toString' of undefined") {
       res.sendStatus(400);

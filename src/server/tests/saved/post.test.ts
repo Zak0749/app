@@ -4,8 +4,9 @@ import faker from 'faker';
 import app from '../../app';
 import db from '../../db/get';
 import { createQuiz } from '../../helpers/createQuiz';
+import { AnyObj } from '../../..';
 
-async function inDb({ quizId }:anyObj) {
+async function inDb({ quizId }:AnyObj) {
   const users = await db.users;
   const user = await users.findOne({
     saved: { $elemMatch: { quizId: new ObjectId(quizId as string) } },

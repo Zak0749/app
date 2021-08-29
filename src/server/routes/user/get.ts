@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { ObjectId } from 'mongodb';
+import { UserCol } from '../../..';
 import db from '../../db/get';
 import { formUser } from '../../helpers/form-user';
 
@@ -9,7 +10,7 @@ router.get('/api/user/:id', async (req, res, next) => {
   try {
     const users = await db.users;
 
-    const user = await users.findOne({ _id: new ObjectId(req.params.id) }) as usercol;
+    const user = await users.findOne({ _id: new ObjectId(req.params.id) }) as UserCol;
 
     if (!user) {
       res.sendStatus(400);
@@ -19,7 +20,7 @@ router.get('/api/user/:id', async (req, res, next) => {
     const formedData = await formUser(user, req.currentUser);
 
     res.status(200).json(formedData);
-  } catch (err) {
+  } catch (err:any) {
     if (err.message === 'Argument passed in must be a Buffer or string of 12 bytes or a string of 24 hex characters') {
       res.sendStatus(400);
       return;

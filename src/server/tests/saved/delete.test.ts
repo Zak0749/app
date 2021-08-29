@@ -1,10 +1,11 @@
 import { ObjectId } from 'mongodb';
 import supertest from 'supertest';
+import { AnyObj } from '../../..';
 import app from '../../app';
 import db from '../../db/get';
 import { createSaved } from '../../helpers/createSaved';
 
-async function inDb({ quizId }:anyObj) {
+async function inDb({ quizId }:AnyObj) {
   const users = await db.users;
   const user = await users.findOne({
     saved: { $elemMatch: { quizId: new ObjectId(quizId as string) } },

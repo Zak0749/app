@@ -2,6 +2,7 @@ import { Router } from 'express';
 import db from '../../db/get';
 import { formQuiz } from '../../helpers/form-quiz';
 import onlyOn from '../../helpers/auth';
+import { QuizCol } from '../../..';
 
 const router = Router();
 
@@ -16,13 +17,13 @@ router.get('/api/history', onlyOn.authenticated, async (req, res, next) => {
     }
 
     const history = await Promise.all(session.history.map(async (element) => ({
-      quiz: await formQuiz((await quizzes.findOne({ _id: element.quizId }) as quizcol), session),
+      quiz: await formQuiz((await quizzes.findOne({ _id: element.quizId }) as QuizCol), session),
       date: element.date,
       progress: element.progress,
     })));
 
     res.status(200).json(history);
-  } catch (err) {
+  } catch (err:any) {
     next(err);
   }
 });

@@ -21,7 +21,7 @@ router.delete('/api/draft', onlyOn.authenticated, async (req, res, next) => {
 
     await users.updateOne({ _id: new ObjectId(session._id) }, { $pull: { drafts: { _id: new ObjectId(req.body.draftId) } } });
     res.sendStatus(200);
-  } catch (err) {
+  } catch (err:any) {
     next(err);
   }
 });

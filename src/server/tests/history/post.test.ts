@@ -4,8 +4,9 @@ import faker from 'faker';
 import app from '../../app';
 import db from '../../db/get';
 import { historyCredentials } from '../../helpers/createHistory';
+import { AnyObj } from '../../..';
 
-async function inDb({ quizId }:anyObj) {
+async function inDb({ quizId }:AnyObj) {
   const users = await db.users;
   const user = await users.findOne({
     history: { $elemMatch: { quizId: new ObjectId(quizId as string) } },
@@ -19,7 +20,7 @@ describe('INVALID', () => {
   keys.forEach((key) => {
     test(`request without ${key}`, async () => {
       const credentials = await historyCredentials();
-      const copy: anyObj = { ...credentials.use };
+      const copy: AnyObj = { ...credentials.use };
       copy[key] = undefined;
       const res = await credentials.request
         .post('/api/history')
@@ -31,7 +32,7 @@ describe('INVALID', () => {
 
     test(`request with wrong datatype for ${key}`, async () => {
       const credentials = await historyCredentials();
-      const copy: anyObj = { ...credentials.use };
+      const copy: AnyObj = { ...credentials.use };
       copy[key] = faker.datatype.array();
       const res = await credentials.request
         .post('/api/history')

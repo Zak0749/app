@@ -9,7 +9,7 @@ router.get('/api/draft', onlyOn.authenticated, async (req, res, next) => {
 
     const session = req.currentUser;
     res.status(200).json(session.drafts);
-  } catch (error) {
+  } catch (error:any) {
     next(error);
   }
 });

@@ -20,6 +20,6 @@
     "jsx": "react-jsx"
   },
 
-    "include": ["src/server/**/*", "src/@types/**/*"],
+    "include": ["src/server/**/*", "src/@types/**/*", "src/index.d.ts"],
   "exclude": ["node_modules", "**/*.test.ts", "src/client/**/*", "scripts/**/*",  "config/**/*", "jest.config.js", "build"]
 }

@@ -4,6 +4,7 @@ import app from '../../app';
 import db from '../../db/get';
 import createDraft from '../../helpers/createDraft';
 import { generateQuiz } from '../../helpers/createQuiz';
+import { UserCol } from '../../..';
 
 describe('INVALID', () => {
   test('request with bad session', async () => {
@@ -55,7 +56,7 @@ describe('VALID', () => {
 
     expect(res.status).toBe(200);
     const users = await db.users;
-    const user = await users.findOne({ username: credentials.full.username }) as usercol;
+    const user = await users.findOne({ username: credentials.full.username }) as UserCol;
     const draft = user.drafts[0];
     expect(draft).toEqual({
       _id: credentials.full.draftId,
@@ -80,7 +81,7 @@ describe('VALID', () => {
 
     expect(res.status).toBe(200);
     const users = await db.users;
-    const user = await users.findOne({ username: credentials.full.username }) as usercol;
+    const user = await users.findOne({ username: credentials.full.username }) as UserCol;
     const draft = user.drafts[0];
     expect(draft).toEqual({
       _id: credentials.full.draftId,

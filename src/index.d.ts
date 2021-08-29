@@ -1,28 +1,22 @@
 import { ObjectId } from 'mongodb';
 
-declare global {
-  namespace Express {
-    interface Request {
-      currentUser: usercol | undefined
-    }
-  }
-
-  type categorycol = {
+declare namespace e {
+  type CategoryCol = {
     _id?: ObjectId;
     title: string;
   };
 
-  type answercol = {
+  type AnswerCol = {
     body: string;
     correct: boolean;
   };
 
-  type questioncol = {
+  type QuestionCol = {
     body: string;
-    answers: answercol[];
+    answers: AnswerCol[];
   };
 
-  type quizcol = {
+  type QuizCol = {
     _id?: ObjectId;
     title: string;
     emoji: string;
@@ -36,57 +30,57 @@ declare global {
     saved?: boolean;
     played?: boolean;
 
-    questions: questioncol[];
+    questions: QuestionCol[];
   };
 
-  type draftcol = {
+  type DraftCol = {
     _id?: ObjectId;
     title: string;
     emoji: string;
     description: string;
     date: Date;
     categoryId: ObjectId;
-    questions: questioncol[];
+    questions: QuestionCol[];
   };
 
-  type historycol = {
+  type HistoryCol = {
     date: Date;
     quizId: ObjectId;
     progress: number;
   };
 
-  type savedcol = {
+  type SavedCol = {
     date: Date;
     quizId: ObjectId;
   };
 
-  type usercol = {
+  type UserCol = {
     _id: ObjectId;
     username: string;
     email: string;
     password: string;
     emoji: string;
     date: Date;
-    history: historycol[];
-    saved: savedcol[];
-    drafts: draftcol[];
+    history: HistoryCol[];
+    saved: SavedCol[];
+    drafts: DraftCol[];
   };
 
-  type anyObj = {
+  type AnyObj = {
     [key:string]: unknown
   }
 
-  type user = {
+  type User = {
     userId: string;
     username: string;
     email?: string;
     emoji: string;
     date: Date;
     owned: boolean;
-    quizzes?: quiz[];
+    quizzes?: Quiz[];
   }
 
-  type quiz = {
+  type Quiz = {
     _id: string;
     title: string;
     emoji: string;
@@ -96,7 +90,7 @@ declare global {
     categoryTitle: string;
     categoryId: string;
     plays: number;
-    questions: question[];
+    questions: Question[];
     userId: string;
     username: string;
     owned: boolean;
@@ -105,49 +99,66 @@ declare global {
     progress: number;
   }
 
-  type question = {
+  type Question = {
     body: string;
-    answers: answer[];
+    answers: Answer[];
   }
 
-  type answer = {
+  type Answer = {
     body: string;
     correct: boolean;
   }
 
-  type searchResult = {
-    users: user[]
-    quizzes: quiz[]
+  type SearchResult = {
+    users: User[]
+    quizzes: Quiz[]
   }
 
-  type loggedIn = {
+  type LoggedIn = {
     loggedIn: boolean;
     setLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
   }
 
-  type draft = {
+  type Draft = {
     _id: string,
     title: string,
     emoji: string,
     description: string,
     date: string,
     categoryId: string,
-    questions: question[],
+    questions: Question[],
   }
 
-  type category = {
+  type Category = {
     id: string;
     title: string;
-    quizzes: quiz[]
+    quizzes: Quiz[]
   }
 
-  type editing = {
+  type Editing = {
     title: string,
     emoji: string,
     description: string,
     categoryId: string,
-    questions: question[],
+    questions: Question[],
+  }
+
+  type Theme = {
+    mainBg: 'black' | 'white'
+    bg: 'bg-light' | 'bg-dark'
+    text: 'text-light' | 'text-dark'
+    main: 'dark' | 'light'
+    opp: 'light' | 'dark'
   }
 }
 
-export {};
+declare global {
+  namespace Express {
+    interface Request {
+      currentUser: e.UserCol | undefined
+    }
+  }
+}
+  
+
+export = e;

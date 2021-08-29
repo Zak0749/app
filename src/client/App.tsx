@@ -1,14 +1,45 @@
+import { useEffect, useState } from 'react';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
-import NavigationBar from './helpers/Navbar';
+import { Theme } from '..';
+import NavigationBar from './components/Navbar';
+import { useAxios } from './helpers/axios';
+import getTheme from './helpers/get-theme';
+import loggedInContext from './helpers/logged-in-context';
+import themeContext from './helpers/theme-context';
+import Explore from './pages/Explore';
+import Login from './pages/Login';
+import Session from './pages/Session';
 
 function App(): JSX.Element {
+  const [theme, setTheme] = useState<Theme>(
+    window.matchMedia('(prefers-color-scheme: dark)').matches ? getTheme('dark') : getTheme('light'),
+  );
+
+  useEffect(() => {
+    const modeMe = (e: any) => {
+      setTheme(e.matches ? getTheme('dark') : getTheme('light'));
+    };
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', modeMe);
+  }, []);
+
+  const [{ data: loggedIn }, refresh] = useAxios({
+    method: 'GET',
+    url: 'loggedin',
+  });
+
   return (
-    <Router>
-      <NavigationBar />
-      <Switch>
-        <Route path="/" exact component={() => <p>hi</p>} />
-      </Switch>
-    </Router>
+    <themeContext.Provider value={theme}>
+      <loggedInContext.Provider value={{ refresh, loggedIn }}>
+        <Router>
+          <NavigationBar />
+          <Switch>
+            <Route path="/explore" exact component={Explore} />
+            <Route path="/login" exact component={Login} />
+            <Route path="/login" exact component={Session} />
+          </Switch>
+        </Router>
+      </loggedInContext.Provider>
+    </themeContext.Provider>
   );
 }
 

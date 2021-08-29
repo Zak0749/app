@@ -5,8 +5,9 @@ import app from '../../app';
 import db from '../../db/get';
 import { createQuiz } from '../../helpers/createQuiz';
 import { createSession } from '../../helpers/createSession';
+import { AnyObj } from '../../..';
 
-async function inDb({ quizId }: anyObj) {
+async function inDb({ quizId }: AnyObj) {
   const quizzes = await db.quizzes;
   const quiz = await quizzes.findOne({ _id: new ObjectId(quizId as string) });
   return !!quiz;
@@ -18,7 +19,7 @@ describe('INVALID', () => {
   keys.forEach((key) => {
     test(`request without ${key}`, async () => {
       const credentials = await createQuiz();
-      const copy: anyObj = { ...credentials.use };
+      const copy: AnyObj = { ...credentials.use };
       copy[key] = undefined;
       const res = await credentials.request
         .delete('/api/quiz')
@@ -30,7 +31,7 @@ describe('INVALID', () => {
 
     test(`request with wrong type for ${key}`, async () => {
       const credentials = await createQuiz();
-      const copy: anyObj = { ...credentials.use };
+      const copy: AnyObj = { ...credentials.use };
       copy[key] = faker.datatype.array();
       const res = await credentials.request
         .delete('/api/quiz')

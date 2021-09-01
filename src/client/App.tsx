@@ -8,6 +8,7 @@ import loggedInContext from './helpers/logged-in-context';
 import themeContext from './helpers/theme-context';
 import Explore from './pages/Explore';
 import Login from './pages/Login';
+import Quiz from './pages/Quiz';
 import Session from './pages/Session';
 
 function App(): JSX.Element {
@@ -35,7 +36,8 @@ function App(): JSX.Element {
           <Switch>
             <Route path="/explore" exact component={Explore} />
             <Route path="/login" exact component={Login} />
-            <Route path="/login" exact component={Session} />
+            <Route path="/session" exact component={Session} />
+            <Route path="/quiz/:id" exact component={Quiz} />
           </Switch>
         </Router>
       </loggedInContext.Provider>

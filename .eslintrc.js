@@ -21,6 +21,7 @@ module.exports = {
     '@typescript-eslint',
   ],
   rules: {
+    'no-unused-vars': 'warn',
     'import/extensions': ['error', 'never'],
     'no-underscore-dangle': [2, { allow: ['_id'] }],
     'no-use-before-define': 'off',
@@ -34,6 +35,7 @@ module.exports = {
     'react/jsx-uses-react': 'off',
     'react/react-in-jsx-scope': 'off',
     'react/jsx-filename-extension': [1, { extensions: ['.tsx', '.jsx'] }],
+    'react/self-closing-comp': 'off',
   },
 
   settings: {

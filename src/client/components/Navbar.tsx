@@ -21,8 +21,8 @@ function NavigationBar({ size }: SizeMeProps) {
     <Navbar collapseOnSelect expand="sm" bg={theme.main} variant={theme.main}>
       <Container>
         <Nav>
-          <div style={{ display: 'flex', justifyContent: 'space-between', minWidth: '175px' }}>
-            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <div className="d-flex justify-content-between" style={{ minWidth: '175px' }}>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" className="border-0" />
             <LinkContainer to="/explore">
               <Navbar.Brand>Quizzes</Navbar.Brand>
             </LinkContainer>

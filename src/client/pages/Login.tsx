@@ -26,7 +26,7 @@ function Login() {
         history.push('/session');
       }
     });
-  });
+  }, []);
 
   const submit = async (evt: React.FormEvent<HTMLFormElement>) => {
     evt.preventDefault();

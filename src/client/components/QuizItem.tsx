@@ -33,7 +33,7 @@ function QuizItemPlaceholder() {
 
   return (
     <Card style={{ width: '15rem' }} className="me-3" bg={theme.main} text={theme.opp}>
-      <Placeholder className="text-center" animation="glow"><Placeholder style={{ minWidth: '100%', minHeight: '180px' }} /></Placeholder>
+      <Placeholder className="text-center mt-3 rounded" animation="glow"><Placeholder style={{ minWidth: '100%', minHeight: '180px' }} /></Placeholder>
       <Card.Body>
         <Placeholder as={Card.Title} animation="glow">
           <Placeholder xs={9} />

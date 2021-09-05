@@ -7,18 +7,19 @@ import { LinkContainer } from 'react-router-bootstrap';
 import { SizeMeProps, withSize } from 'react-sizeme';
 import { PersonCircle } from 'react-bootstrap-icons';
 import loggedInContext from '../helpers/logged-in-context';
-import themeContext from '../helpers/theme-context';
 
 function NavigationBar({ size }: SizeMeProps) {
-  const theme = useContext(themeContext);
-  const { loggedIn } = useContext(loggedInContext);
+  // Logged in status
+  const { status } = useContext(loggedInContext);
 
-  const UserButton = () => (loggedIn
+  // A logged in button or a profule button depending on the users logged in staus
+  const UserButton = () => (status
     ? <LinkContainer to="/session"><Button><PersonCircle /></Button></LinkContainer>
     : <LinkContainer to="/login"><Button variant="primary">Login</Button></LinkContainer>);
 
+  // The navbar
   return (
-    <Navbar collapseOnSelect expand="sm" bg={theme.main} variant={theme.main}>
+    <Navbar collapseOnSelect expand="sm" bg="primary" variant="dark">
       <Container>
         <Nav>
           <div className="d-flex justify-content-between" style={{ minWidth: '175px' }}>

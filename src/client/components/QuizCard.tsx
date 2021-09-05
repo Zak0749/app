@@ -1,21 +1,18 @@
-import { useContext } from 'react';
 import { Card, Placeholder } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { Quiz } from '../..';
-import themeContext from '../helpers/theme-context';
 
-function QuizItem({
+function QuizCard({
   quiz: {
     emoji, title, username, _id, categoryTitle,
   },
 }: { quiz: Quiz }) {
-  const theme = useContext(themeContext);
   return (
-    <Card style={{ width: '15rem' }} className="me-3" bg={theme.main} text={theme.opp}>
-      <Link to={`/quiz/${_id}`} className="text-decoration-none text-white ">
-        <div className={`text-center ${theme.bg} mt-3 rounded`} style={{ fontSize: '120px' }}>{emoji}</div>
+    <Card style={{ width: '15rem' }} className="m-2" bg="dark" text="dark">
+      <Link to={`/quiz/${_id}`} className="text-decoration-none " style={{ color: 'var(--bs-body-color)' }}>
+        <div className="text-center mt-3" style={{ fontSize: '120px' }}>{emoji}</div>
         <Card.Body>
-          <Card.Title className={theme.text}>{title}</Card.Title>
+          <Card.Title className="fw-bold">{title}</Card.Title>
           <Card.Text className="text-primary">{ categoryTitle }</Card.Text>
           <Card.Text className="text-secondary">
             -
@@ -28,11 +25,9 @@ function QuizItem({
   );
 }
 
-function QuizItemPlaceholder() {
-  const theme = useContext(themeContext);
-
+function QuizCardPlaceholder() {
   return (
-    <Card style={{ width: '15rem' }} className="me-3" bg={theme.main} text={theme.opp}>
+    <Card style={{ width: '15rem' }} className="m-2" bg="dark" text="dark">
       <Placeholder className="text-center mt-3 rounded" animation="glow"><Placeholder style={{ minWidth: '100%', minHeight: '180px' }} /></Placeholder>
       <Card.Body>
         <Placeholder as={Card.Title} animation="glow">
@@ -49,4 +44,4 @@ function QuizItemPlaceholder() {
   );
 }
 
-export { QuizItem, QuizItemPlaceholder };
+export { QuizCard, QuizCardPlaceholder };

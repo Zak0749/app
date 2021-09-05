@@ -130,7 +130,7 @@ declare namespace e {
   }
 
   type Category = {
-    id: string;
+    _id: string;
     title: string;
     quizzes: Quiz[]
   }

@@ -5,7 +5,7 @@ import { createContext } from 'react';
 type loggedIn = {
   // eslint-disable-next-line no-unused-vars
   refresh: (config?: AxiosRequestConfig, options?: RefetchOptions) => AxiosPromise<any>
-  loggedIn: boolean
+  status : boolean
 }
 
-export default createContext<loggedIn>({ refresh: null, loggedIn: false });
+export default createContext<loggedIn>({ refresh: null, status: false });

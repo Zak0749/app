@@ -1,47 +1,37 @@
-import { useEffect, useState } from 'react';
-import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
-import { Theme } from '..';
-import NavigationBar from './components/Navbar';
+import {
+  Route, BrowserRouter as Router, Switch, Redirect,
+} from 'react-router-dom';
+import Navbar from './components/Navbar';
 import { useAxios } from './helpers/axios';
-import getTheme from './helpers/get-theme';
 import loggedInContext from './helpers/logged-in-context';
-import themeContext from './helpers/theme-context';
-import Explore from './pages/Explore';
-import Login from './pages/Login';
-import Quiz from './pages/Quiz';
-import Session from './pages/Session';
+import CategoryView from './pages/CategoryView';
+import CategoriesView from './pages/CategoriesView';
+import ExploreView from './pages/ExploreView';
+import QuizView from './pages/QuizView';
+import UserView from './pages/UserView';
 
 function App(): JSX.Element {
-  const [theme, setTheme] = useState<Theme>(
-    window.matchMedia('(prefers-color-scheme: dark)').matches ? getTheme('dark') : getTheme('light'),
-  );
-
-  useEffect(() => {
-    const modeMe = (e: any) => {
-      setTheme(e.matches ? getTheme('dark') : getTheme('light'));
-    };
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', modeMe);
-  }, []);
-
-  const [{ data: loggedIn }, refresh] = useAxios({
+  // Asks the server for the loggedIn staus
+  const [{ data: status }, refresh] = useAxios<boolean>({
     method: 'GET',
     url: 'loggedin',
   });
 
+  // Returns the content
   return (
-    <themeContext.Provider value={theme}>
-      <loggedInContext.Provider value={{ refresh, loggedIn }}>
-        <Router>
-          <NavigationBar />
-          <Switch>
-            <Route path="/explore" exact component={Explore} />
-            <Route path="/login" exact component={Login} />
-            <Route path="/session" exact component={Session} />
-            <Route path="/quiz/:id" exact component={Quiz} />
-          </Switch>
-        </Router>
-      </loggedInContext.Provider>
-    </themeContext.Provider>
+    <loggedInContext.Provider value={{ status, refresh }}>
+      <Router>
+        <Navbar />
+        <Switch>
+          <Route exact path="/explore" component={ExploreView} />
+          <Route exact path="/categories" component={CategoriesView} />
+          <Route exact path="/category/:id" component={CategoryView} />
+          <Route exact path="/quiz/:id" component={QuizView} />
+          <Route exact path="/user/:id" component={UserView} />
+          <Route exact path="/"><Redirect to="/explore" /></Route>
+        </Switch>
+      </Router>
+    </loggedInContext.Provider>
   );
 }
 

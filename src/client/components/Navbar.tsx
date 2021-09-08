@@ -19,7 +19,7 @@ function NavigationBar({ size }: SizeMeProps) {
 
   // The navbar
   return (
-    <Navbar collapseOnSelect expand="sm" bg="primary" variant="dark">
+    <Navbar collapseOnSelect expand="md" bg="primary" variant="dark">
       <Container>
         <Nav>
           <div className="d-flex justify-content-between" style={{ minWidth: '175px' }}>
@@ -30,7 +30,7 @@ function NavigationBar({ size }: SizeMeProps) {
           </div>
         </Nav>
 
-        {size.width < 575 ? (
+        {size.width < 768 ? (
           <UserButton />
         ) : <></>}
 
@@ -61,10 +61,14 @@ function NavigationBar({ size }: SizeMeProps) {
             <LinkContainer to="/categories">
               <Nav.Link>Categories</Nav.Link>
             </LinkContainer>
+
+            <LinkContainer to="/search">
+              <Nav.Link>Search</Nav.Link>
+            </LinkContainer>
           </Nav>
         </Navbar.Collapse>
 
-        {size.width > 575 ? (
+        {size.width >= 768 ? (
           <UserButton />
         ) : <></>}
 

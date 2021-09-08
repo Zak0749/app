@@ -9,6 +9,7 @@ import CategoriesView from './pages/CategoriesView';
 import ExploreView from './pages/ExploreView';
 import QuizView from './pages/QuizView';
 import UserView from './pages/UserView';
+import SearchView from './pages/SearchView';
 
 function App(): JSX.Element {
   // Asks the server for the loggedIn staus
@@ -28,6 +29,7 @@ function App(): JSX.Element {
           <Route exact path="/category/:id" component={CategoryView} />
           <Route exact path="/quiz/:id" component={QuizView} />
           <Route exact path="/user/:id" component={UserView} />
+          <Route exact path="/search" component={SearchView} />
           <Route exact path="/"><Redirect to="/explore" /></Route>
         </Switch>
       </Router>

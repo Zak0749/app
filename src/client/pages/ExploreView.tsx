@@ -95,7 +95,7 @@ function ExploreView(): JSX.Element {
         <Alert show={showErrAlert} variant="danger" onClose={() => { setErrAlert(false); }} dismissible>
           There was an error try reloading if this issue persists report it
           {' '}
-          <Alert.Link href="https://github.com/Zak0749/quiz-app/issues">here</Alert.Link>
+          <Alert.Link href="https://github.com/Zak0749/app/issues">here</Alert.Link>
         </Alert>
 
         <h1>Explore</h1>

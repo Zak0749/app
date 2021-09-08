@@ -146,7 +146,7 @@ function QuizView() {
         <Alert show={showErrAlert} variant="danger" onClose={() => { setErrAlert(false); }} dismissible>
           There was an error try reloading if this issue persists report it
           {' '}
-          <Alert.Link href="https://github.com/Zak0749/quiz-app/issues">here</Alert.Link>
+          <Alert.Link href="https://github.com/Zak0749/app/issues">here</Alert.Link>
         </Alert>
         <PlaceholderView />
       </div>
@@ -161,7 +161,7 @@ function QuizView() {
       <Alert show={showErrAlert} variant="info" onClose={() => { setErrAlert(false); }} dismissible>
         There was a problem with saving/unsaving the quiz please reaload and try again if this issue persists report it
         {' '}
-        <Alert.Link href="https://github.com/Zak0749/quiz-app/issues">here</Alert.Link>
+        <Alert.Link href="https://github.com/Zak0749/app/issues">here</Alert.Link>
         .
       </Alert>
       <div className="bg-dark rounded text-center" style={{ fontSize: '250px' }}>{data.emoji}</div>

@@ -31,7 +31,7 @@ function UserView(): JSX.Element {
         <Alert show={showErrAlert} variant="danger" onClose={() => { setErrAlert(false); }} dismissible>
           There was an error try reloading if this issue persists report it
           {' '}
-          <Alert.Link href="https://github.com/Zak0749/quiz-app/issues">here</Alert.Link>
+          <Alert.Link href="https://github.com/Zak0749/app/issues">here</Alert.Link>
         </Alert>
         <Placeholder animation="glow"><div className="mw-80 text-center  rounded"><Placeholder className="w-100 h-100" style={{ minHeight: '350px' }} /></div></Placeholder>
         <Placeholder className="my-2 fs-1 fw-bold" xs={8} />

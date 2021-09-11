@@ -7,15 +7,19 @@ import { LinkContainer } from 'react-router-bootstrap';
 import { SizeMeProps, withSize } from 'react-sizeme';
 import { PersonCircle } from 'react-bootstrap-icons';
 import loggedInContext from '../helpers/logged-in-context';
+import modalContext from '../helpers/modal-context';
+import LoginView from '../pages/LoginView';
 
 function NavigationBar({ size }: SizeMeProps) {
   // Logged in status
   const { status } = useContext(loggedInContext);
+  const [, setModal] = useContext(modalContext);
 
   // A logged in button or a profule button depending on the users logged in staus
   const UserButton = () => (status
     ? <LinkContainer to="/session"><Button><PersonCircle /></Button></LinkContainer>
-    : <LinkContainer to="/login"><Button variant="primary">Login</Button></LinkContainer>);
+    : <Button variant="primary" onClick={() => setModal({ show: true, element: LoginView })}>Login</Button>
+  );
 
   // The navbar
   return (

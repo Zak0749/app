@@ -132,7 +132,7 @@ function SignUpView() {
               <FloatingLabel label="Repeat Password" className="mb-3" controlId="validationFormik03">
                 <Form.Control
                   type="password"
-                  name="repeatpassword"
+                  name="passwordDub"
                   placeholder="Password"
                   value={values.passwordDub}
                   onChange={handleChange}

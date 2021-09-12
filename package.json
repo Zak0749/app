@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "./build/server/app.js",
-  "proxy": "http://localhost:5000",
+  "proxy": "localhost:5000",
   "scripts": {
     "start": "node ./build/server/bin/www.js",
     "startDev": "node ./scripts/start.js || ts-node ./src/server/bin/www.js",
@@ -84,6 +84,7 @@
     "express-session": "^1.17.2",
     "faker": "^5.5.3",
     "file-loader": "6.1.1",
+    "formik": "^2.2.9",
     "fs-extra": "^9.0.1",
     "html-webpack-plugin": "4.5.0",
     "http-errors": "^1.7.2",
@@ -115,6 +116,8 @@
     "react-sizeme": "^3.0.2",
     "resolve": "1.18.1",
     "resolve-url-loader": "^3.1.2",
+    "sass": "^1.39.0",
+    "sass-loader": "^10.0.5",
     "semver": "7.3.2",
     "style-loader": "1.3.0",
     "supertest": "^6.1.4",
@@ -126,7 +129,8 @@
     "webpack": "4.44.2",
     "webpack-dev-server": "3.11.1",
     "webpack-manifest-plugin": "2.2.0",
-    "workbox-webpack-plugin": "5.1.4"
+    "workbox-webpack-plugin": "5.1.4",
+    "yup": "^0.32.9"
   },
   "jest": {
     "roots": [

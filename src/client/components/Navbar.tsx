@@ -9,6 +9,7 @@ import { PersonCircle } from 'react-bootstrap-icons';
 import loggedInContext from '../helpers/logged-in-context';
 import modalContext from '../helpers/modal-context';
 import LoginView from '../pages/LoginView';
+import LoginView from '../pages/SessionView';
 
 function NavigationBar({ size }: SizeMeProps) {
   // Logged in status
@@ -17,7 +18,7 @@ function NavigationBar({ size }: SizeMeProps) {
 
   // A logged in button or a profule button depending on the users logged in staus
   const UserButton = () => (status
-    ? <LinkContainer to="/session"><Button><PersonCircle /></Button></LinkContainer>
+    ? <Button variant="primary" onClick={() => setModal({ show: true, element: SessionView })}><PersonCircle /></Button>
     : <Button variant="primary" onClick={() => setModal({ show: true, element: LoginView })}>Login</Button>
   );
 

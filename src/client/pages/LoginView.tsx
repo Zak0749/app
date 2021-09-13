@@ -8,6 +8,7 @@ import { axios } from '../helpers/axios';
 import loggedInContext from '../helpers/logged-in-context';
 import modalContext from '../helpers/modal-context';
 import SignUpView from './SignUpView';
+import SessionView from './SignUpView';
 
 const schema = yup.object().shape({
   username: yup
@@ -27,7 +28,9 @@ function LoginView() {
   const [modal, setModal] = useContext(modalContext);
 
   useEffect(() => {
-    // set modal to session view :)
+    if (status) {
+      setModal({ show: true, element: SessionView})
+    }
   });
 
   return (

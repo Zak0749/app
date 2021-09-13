@@ -9,7 +9,7 @@ import { PersonCircle } from 'react-bootstrap-icons';
 import loggedInContext from '../helpers/logged-in-context';
 import modalContext from '../helpers/modal-context';
 import LoginView from '../pages/LoginView';
-import LoginView from '../pages/SessionView';
+import SessionView from '../pages/SessionView';
 
 function NavigationBar({ size }: SizeMeProps) {
   // Logged in status

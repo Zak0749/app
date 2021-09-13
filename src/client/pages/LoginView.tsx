@@ -49,7 +49,7 @@ function LoginView() {
             try {
               await axios({
                 url: '/session',
-                method: 'GET',
+                method: 'POST',
                 data: values,
               });
               refresh();

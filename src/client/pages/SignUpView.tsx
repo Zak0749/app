@@ -13,7 +13,7 @@ const schema = yup.object().shape({
   username: yup.string().required().max(32),
   password: yup.string().required().min(8),
   passwordDub: yup.string().required().min(8).oneOf([yup.ref('password'), null], "Passwords don't match"),
-  emoji: yup.string().required().matches(/\p{RI}\p{RI}|\p{Emoji}(\p{EMod}+|\u{FE0F}\u{20E3}?|[\u{E0020}-\u{E007E}]+\u{E007F})?(\u{200D}\p{Emoji}(\p{EMod}+|\u{FE0F}\u{20E3}?|[\u{E0020}-\u{E007E}]+\u{E007F})?)+|\p{EPres}(\p{EMod}+|\u{FE0F}\u{20E3}?|[\u{E0020}-\u{E007E}]+\u{E007F})?|\p{Emoji}(\p{EMod}+|\u{FE0F}\u{20E3}?|[\u{E0020}-\u{E007E}]+\u{E007F})/gu, 'must be an emoji'),
+  emoji: yup.string().required().matches(/\p{Emoji}/gu, 'must be an emoji'),
 });
 
 function SignUpView() {

@@ -142,14 +142,6 @@ declare namespace e {
     categoryId: string,
     questions: Question[],
   }
-
-  type Theme = {
-    mainBg: 'black' | 'white'
-    bg: 'bg-light' | 'bg-dark'
-    text: 'text-light' | 'text-dark'
-    main: 'dark' | 'light'
-    opp: 'light' | 'dark'
-  }
 }
 
 declare global {

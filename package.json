@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "./build/server/app.js",
-  "proxy": "localhost:5000",
+  "proxy": "https://nitetop.local:5000",
   "scripts": {
     "start": "node ./build/server/bin/www.js",
-    "startDev": "node ./scripts/start.js || ts-node ./src/server/bin/www.js",
+    "startDev": "node ./scripts/start.js",
     "buildReact": "node scripts/build.js",
     "buildServer": "tsc",
     "test": "jest",

@@ -21,7 +21,7 @@ function SignUpView() {
 
   return (
     <Modal.Dialog style={{
-      maxWidth: '700px', width: '90%', height: '90%',
+      maxWidth: '700px', width: '90%', minHeight: '90%',
     }}
     >
       <Modal.Header closeButton>

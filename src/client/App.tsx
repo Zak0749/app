@@ -11,6 +11,7 @@ import CategoriesView from './pages/CategoriesView';
 import ExploreView from './pages/ExploreView';
 import QuizView from './pages/QuizView';
 import UserView from './pages/UserView';
+import SavedView from './pages/SavedView';
 import SearchView from './pages/SearchView';
 import modalContext, { modalType } from './helpers/modal-context';
 import './app.scss';
@@ -37,6 +38,7 @@ function App(): JSX.Element {
             <Route exact path="/quiz/:id" component={QuizView} />
             <Route exact path="/user/:id" component={UserView} />
             <Route exact path="/search" component={SearchView} />
+            <Route exact path="/search" component={SavedView} />
             <Route exact path="/"><Redirect to="/explore" /></Route>
           </Switch>
         </Router>

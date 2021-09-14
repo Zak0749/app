@@ -38,7 +38,7 @@ function App(): JSX.Element {
             <Route exact path="/quiz/:id" component={QuizView} />
             <Route exact path="/user/:id" component={UserView} />
             <Route exact path="/search" component={SearchView} />
-            <Route exact path="/search" component={SavedView} />
+            <Route exact path="/saved" component={SavedView} />
             <Route exact path="/"><Redirect to="/explore" /></Route>
           </Switch>
         </Router>

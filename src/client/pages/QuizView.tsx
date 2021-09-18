@@ -4,8 +4,8 @@ import {
 } from 'react-bootstrap';
 import { BookmarkFill, Bookmark } from 'react-bootstrap-icons';
 import { Link, useParams } from 'react-router-dom';
-import { Quiz } from '../..';
-import { useAxios } from '../helpers/axios';
+import { Answer, Quiz } from '../..';
+import { axios, useAxios } from '../helpers/axios';
 import loggedInContext from '../helpers/logged-in-context';
 import PlayView from './PlayView';
 
@@ -145,6 +145,20 @@ function QuizView() {
     }
   }, [error, saveErr, unsaveErr]);
 
+  const close = (answers: Answer[]) => {
+    setPlay(false);
+    if (status) {
+      axios({
+        url: '/history',
+        method: 'post',
+        data: {
+          quizId: data._id,
+          progress: answers.length / data.questions.length,
+        },
+      });
+    }
+  };
+
   if (error || loading) {
     return (
       <div className="p-3 mx-auto" style={{ maxWidth: '500px' }}>
@@ -236,8 +250,7 @@ function QuizView() {
         </div>
       </div>
       <Modal show={playQuiz} fullscreen onHide={() => setPlay(false)}>
-        <Modal.Header closeButton />
-        <Modal.Body><PlayView quiz={data} /></Modal.Body>
+        <PlayView quiz={data} startInx={0} close={close} />
       </Modal>
     </>
   );

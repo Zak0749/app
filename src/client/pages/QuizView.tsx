@@ -250,7 +250,7 @@ function QuizView() {
         </div>
       </div>
       <Modal show={playQuiz} fullscreen onHide={() => setPlay(false)}>
-        <PlayView quiz={data} startInx={0} close={close} />
+        <PlayView quiz={data} startInx={data.progress * data.questions.length || 0} progress={data.progress} close={close} />
       </Modal>
     </>
   );

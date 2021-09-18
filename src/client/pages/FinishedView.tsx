@@ -1,6 +1,6 @@
 import { ProgressBar, Table } from 'react-bootstrap';
 import {
-  Check, CheckLg, X, XLg,
+  Check, CheckLg, QuestionLg, X, XLg,
 } from 'react-bootstrap-icons';
 import { Answer, Quiz } from '../..';
 
@@ -26,7 +26,15 @@ function FinishedView({ quiz, answers }: { quiz: Quiz, answers: Answer[] }) {
             {quiz.questions.map((que, idx) => (
               <tr>
                 <th>{que.body}</th>
-                <th>{answers[idx].correct ? <CheckLg style={{ color: 'var(--bs-success)' }} /> : <XLg style={{ color: 'var(--bs-danger)' }} />}</th>
+                <th>
+                  {
+                    answers[idx].correct ? answers[idx].correct === false
+                      ? <XLg style={{ color: 'var(--bs-danger)' }} />
+                      : <QuestionLg style={{ color: 'var(--bs-danger)' }} />
+                      : <CheckLg style={{ color: 'var(--bs-success)' }} />
+                  }
+
+                </th>
                 <th>{answers[idx].body}</th>
               </tr>
             ))}

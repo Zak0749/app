@@ -86,8 +86,6 @@ function PlayView({
   const [index, setInx] = useState(startInx);
   const [answers, setAnswers] = useState<Answer[]>(Array.from({ length: progress / quiz.questions.length }, () => ({ body: '', correct: null })));
 
-  console.log(answers);
-
   return (
     <>
       <Modal.Header><CloseButton onClick={() => close(answers)} /></Modal.Header>

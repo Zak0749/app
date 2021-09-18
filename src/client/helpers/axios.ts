@@ -10,4 +10,4 @@ const useAxios = makeUseAxios({
   axios: config,
 });
 
-export { config, useAxios };
+export { config as axios, useAxios };

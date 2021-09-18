@@ -7,19 +7,24 @@ import { LinkContainer } from 'react-router-bootstrap';
 import { SizeMeProps, withSize } from 'react-sizeme';
 import { PersonCircle } from 'react-bootstrap-icons';
 import loggedInContext from '../helpers/logged-in-context';
+import modalContext from '../helpers/modal-context';
+import LoginView from '../pages/LoginView';
+import SessionView from '../pages/SessionView';
 
 function NavigationBar({ size }: SizeMeProps) {
   // Logged in status
   const { status } = useContext(loggedInContext);
+  const [, setModal] = useContext(modalContext);
 
   // A logged in button or a profule button depending on the users logged in staus
   const UserButton = () => (status
-    ? <LinkContainer to="/session"><Button><PersonCircle /></Button></LinkContainer>
-    : <LinkContainer to="/login"><Button variant="primary">Login</Button></LinkContainer>);
+    ? <Button variant="primary" onClick={() => setModal({ show: true, element: SessionView })}><PersonCircle /></Button>
+    : <Button variant="primary" onClick={() => setModal({ show: true, element: LoginView })}>Login</Button>
+  );
 
   // The navbar
   return (
-    <Navbar collapseOnSelect expand="sm" bg="primary" variant="dark">
+    <Navbar collapseOnSelect expand="md" bg="primary" variant="dark">
       <Container>
         <Nav>
           <div className="d-flex justify-content-between" style={{ minWidth: '175px' }}>
@@ -30,7 +35,7 @@ function NavigationBar({ size }: SizeMeProps) {
           </div>
         </Nav>
 
-        {size.width < 575 ? (
+        {size.width < 768 ? (
           <UserButton />
         ) : <></>}
 
@@ -61,10 +66,14 @@ function NavigationBar({ size }: SizeMeProps) {
             <LinkContainer to="/categories">
               <Nav.Link>Categories</Nav.Link>
             </LinkContainer>
+
+            <LinkContainer to="/search">
+              <Nav.Link>Search</Nav.Link>
+            </LinkContainer>
           </Nav>
         </Navbar.Collapse>
 
-        {size.width > 575 ? (
+        {size.width >= 768 ? (
           <UserButton />
         ) : <></>}
 

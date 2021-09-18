@@ -36,6 +36,7 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'react/jsx-filename-extension': [1, { extensions: ['.tsx', '.jsx'] }],
     'react/self-closing-comp': 'off',
+    'linebreak-style': 'off',
   },
 
   settings: {

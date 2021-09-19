@@ -1,3 +1,3 @@
-# app
+# quiz-app
 
 I ❤️ code

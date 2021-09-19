@@ -15,6 +15,7 @@ import SavedView from './pages/SavedView';
 import SearchView from './pages/SearchView';
 import modalContext, { modalType } from './helpers/modal-context';
 import './app.scss';
+import HistoryView from './pages/HistoryView';
 
 function App(): JSX.Element {
   // Asks the server for the loggedIn staus
@@ -38,7 +39,8 @@ function App(): JSX.Element {
             <Route exact path="/quiz/:id" component={QuizView} />
             <Route exact path="/user/:id" component={UserView} />
             <Route exact path="/search" component={SearchView} />
-            <Route exact path="/search" component={SavedView} />
+            <Route exact path="/saved" component={SavedView} />
+            <Route exact path="/history" component={HistoryView} />
             <Route exact path="/"><Redirect to="/explore" /></Route>
           </Switch>
         </Router>

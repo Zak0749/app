@@ -1,4 +1,6 @@
-import { useContext, useEffect, useState } from 'react';
+import {
+  useContext, useEffect, useState,
+} from 'react';
 import {
   Alert, Card, Placeholder, Row,
 } from 'react-bootstrap';

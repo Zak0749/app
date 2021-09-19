@@ -46,6 +46,7 @@ function FinishedView({ quiz, answers }: { quiz: Quiz, answers: Answer[] }) {
       </div>
 
       <ProgressBar>
+        <ProgressBar variant="secondary" now={(answers.reduce((acc, curr) => (curr.correct === null ? acc + 1 : acc), 0) / quiz.questions.length) * 100} key={1} />
         <ProgressBar variant="success" now={(answers.reduce((acc, curr) => (curr.correct === true ? acc + 1 : acc), 0) / quiz.questions.length) * 100} key={1} />
         <ProgressBar variant="danger" now={(answers.reduce((acc, curr) => (curr.correct === false ? acc + 1 : acc), 0) / quiz.questions.length) * 100} key={2} />
       </ProgressBar>

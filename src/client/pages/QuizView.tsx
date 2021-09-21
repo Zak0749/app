@@ -1,4 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, {
+  FC, useContext, useEffect, useState,
+} from 'react';
 import {
   Alert, Modal, Placeholder, Button,
 } from 'react-bootstrap';
@@ -9,97 +11,93 @@ import { axios, useAxios } from '../helpers/axios';
 import loggedInContext from '../helpers/logged-in-context';
 import PlayView from './PlayView';
 
-// eslint-disable-next-line no-unused-vars
-function PlaceholderView() {
-  return (
-    <>
+const PlaceholderView: FC = () => (
+  <>
+    <Placeholder animation="glow"><div className="mw-80 text-center  rounded"><Placeholder className="w-100 h-100" style={{ minHeight: '350px' }} /></div></Placeholder>
 
-      <Placeholder animation="glow"><div className="mw-80 text-center  rounded"><Placeholder className="w-100 h-100" style={{ minHeight: '350px' }} /></div></Placeholder>
+    <Placeholder animation="glow">
+      <div className="d-flex justify-content-between py-2">
+        <Placeholder className="fs-1 fw-bold" xs={8} />
+        <Placeholder className="align-middle d-flex align-items-center" xs={1} />
+      </div>
+    </Placeholder>
 
-      <Placeholder animation="glow">
-        <div className="d-flex justify-content-between py-2">
-          <Placeholder className="fs-1 fw-bold" xs={8} />
-          <Placeholder className="align-middle d-flex align-items-center" xs={1} />
-        </div>
-      </Placeholder>
+    <Placeholder animation="glow">
+      <div className="d-flex justify-content-between py-2 fs-3">
+        <Placeholder xs={3} />
+        <Placeholder xs={3} />
+      </div>
+    </Placeholder>
 
-      <Placeholder animation="glow">
-        <div className="d-flex justify-content-between py-2 fs-3">
-          <Placeholder xs={3} />
-          <Placeholder xs={3} />
-        </div>
-      </Placeholder>
+    <Placeholder animation="glow">
+      <div className="py-2">
+        <Placeholder xs={6} />
+      </div>
+    </Placeholder>
 
-      <Placeholder animation="glow">
-        <div className="py-2">
-          <Placeholder xs={6} />
-        </div>
-      </Placeholder>
+    <Placeholder animation="glow">
+      <div className="py-2">
+        <Placeholder xs={3} />
+        {' '}
+        <Placeholder xs={4} />
+        {' '}
+        <Placeholder xs={2} />
+        {' '}
+        <Placeholder xs={3} />
+        {' '}
+        <Placeholder xs={4} />
+        {' '}
+        <Placeholder xs={2} />
+        {' '}
+        <Placeholder xs={5} />
+        {' '}
+        <Placeholder xs={3} />
+        {' '}
+        <Placeholder xs={4} />
+        {' '}
+        <Placeholder xs={5} />
+        {' '}
+        <Placeholder xs={2} />
+        {' '}
+        <Placeholder xs={2} />
+        {' '}
+        <Placeholder xs={5} />
+        {' '}
+        <Placeholder xs={3} />
+        {' '}
+        <Placeholder xs={4} />
+        {' '}
+        <Placeholder xs={1} />
+        {' '}
+        <Placeholder xs={2} />
+        {' '}
+        <Placeholder xs={5} />
+        {' '}
+        <Placeholder xs={2} />
+        {' '}
+        <Placeholder xs={3} />
+        {' '}
+        <Placeholder xs={4} />
+        {' '}
+        <Placeholder xs={5} />
+        {' '}
+        <Placeholder xs={2} />
+        {' '}
+        <Placeholder xs={1} />
+        {' '}
+      </div>
+    </Placeholder>
 
-      <Placeholder animation="glow">
-        <div className="py-2">
-          <Placeholder xs={3} />
-          {' '}
-          <Placeholder xs={4} />
-          {' '}
-          <Placeholder xs={2} />
-          {' '}
-          <Placeholder xs={3} />
-          {' '}
-          <Placeholder xs={4} />
-          {' '}
-          <Placeholder xs={2} />
-          {' '}
-          <Placeholder xs={5} />
-          {' '}
-          <Placeholder xs={3} />
-          {' '}
-          <Placeholder xs={4} />
-          {' '}
-          <Placeholder xs={5} />
-          {' '}
-          <Placeholder xs={2} />
-          {' '}
-          <Placeholder xs={2} />
-          {' '}
-          <Placeholder xs={5} />
-          {' '}
-          <Placeholder xs={3} />
-          {' '}
-          <Placeholder xs={4} />
-          {' '}
-          <Placeholder xs={1} />
-          {' '}
-          <Placeholder xs={2} />
-          {' '}
-          <Placeholder xs={5} />
-          {' '}
-          <Placeholder xs={2} />
-          {' '}
-          <Placeholder xs={3} />
-          {' '}
-          <Placeholder xs={4} />
-          {' '}
-          <Placeholder xs={5} />
-          {' '}
-          <Placeholder xs={2} />
-          {' '}
-          <Placeholder xs={1} />
-          {' '}
-        </div>
-      </Placeholder>
+    <Placeholder>
+      <div className="d-flex justify-content-between py-2">
+        <Placeholder xs={12} />
+        <Placeholder xs={1} />
+      </div>
+    </Placeholder>
+  </>
+);
 
-      <Placeholder>
-        <div className="d-flex justify-content-between py-2">
-          <Placeholder xs={12} />
-          <Placeholder xs={1} />
-        </div>
-      </Placeholder>
-    </>
-  );
-}
-
-function QuizView() {
+const QuizView: FC = () => {
   // The id provided in the url
   const { id } = useParams<{ id: string }>();
 
@@ -254,6 +252,6 @@ function QuizView() {
       </Modal>
     </>
   );
-}
+};
 
 export default QuizView;

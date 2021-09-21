@@ -3,7 +3,7 @@ import {
 } from 'react-bootstrap';
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import { useContext, useEffect } from 'react';
+import { FC, useContext, useEffect } from 'react';
 import { axios } from '../helpers/axios';
 import loggedInContext from '../helpers/logged-in-context';
 import modalContext from '../helpers/modal-context';
@@ -23,7 +23,7 @@ const schema = yup.object().shape({
     .max(32),
 });
 
-function LoginView() {
+const LoginView: FC = () => {
   const { refresh, status } = useContext(loggedInContext);
   const [modal, setModal] = useContext(modalContext);
 
@@ -113,6 +113,6 @@ function LoginView() {
       </Modal.Body>
     </Modal.Dialog>
   );
-}
+};
 
 export default LoginView;

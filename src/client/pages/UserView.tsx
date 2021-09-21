@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Alert, Placeholder, Row } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import { User } from '../..';
 import { QuizCard, QuizCardPlaceholder } from '../components/QuizCard';
 import { useAxios } from '../helpers/axios';
 
-function UserView(): JSX.Element {
+const UserView: FC = () => {
   // The Id provided in the URL
   const { id } = useParams<{ id: string }>();
 
@@ -61,6 +61,6 @@ function UserView(): JSX.Element {
       </Row>
     </div>
   );
-}
+};
 
 export default UserView;

@@ -1,5 +1,10 @@
-import { useContext, useEffect, useState } from 'react';
-import { Alert, Row, Button } from 'react-bootstrap';
+import {
+  FC, useContext, useEffect, useState,
+} from 'react';
+import {
+  Alert, Row, Button, Badge,
+} from 'react-bootstrap';
+import { PlusLg } from 'react-bootstrap-icons';
 import { axios, useAxios } from '../helpers/axios';
 import loggedInContext from '../helpers/logged-in-context';
 import { Quiz } from '../..';
@@ -11,7 +16,7 @@ type Saved = {
   quiz: Quiz;
 }
 
-function HistoryView() {
+const HistoryView: FC = () => {
   const { status } = useContext(loggedInContext);
 
   const [{ error, loading, data }, refresh] = useAxios<Saved[]>({
@@ -80,16 +85,15 @@ function HistoryView() {
 
   return (
     <div className="p-3">
-
-      <div className="d-flex justify-content-between">
-        <h1>History</h1>
-        <Button onClick={clear}>Clear</Button>
-      </div>
+      <h1 className="d-flex justify-content-between">
+        <div>History</div>
+        <Badge bg="primary" onClick={clear}>Clear</Badge>
+      </h1>
       <Row>
         {data.map((saved) => <QuizCard quiz={saved.quiz} />)}
       </Row>
     </div>
   );
-}
+};
 
 export default HistoryView;

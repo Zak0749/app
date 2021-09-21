@@ -1,4 +1,6 @@
-import { useContext, useEffect, useState } from 'react';
+import {
+  FC, useContext, useEffect, useState,
+} from 'react';
 import { Alert, Row } from 'react-bootstrap';
 import { useAxios } from '../helpers/axios';
 import loggedInContext from '../helpers/logged-in-context';
@@ -10,7 +12,7 @@ type Saved = {
   quiz: Quiz;
 }
 
-function SavedView() {
+const SavedView: FC = () => {
   const { status } = useContext(loggedInContext);
 
   const [{ error, loading, data }, refresh] = useAxios<Saved[]>({
@@ -74,6 +76,6 @@ function SavedView() {
       </Row>
     </div>
   );
-}
+};
 
 export default SavedView;

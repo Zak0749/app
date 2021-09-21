@@ -38,6 +38,7 @@ module.exports = {
     'react/self-closing-comp': 'off',
     'linebreak-style': 'off',
     'no-nested-ternary': 'off',
+    'react/prop-types': 'off',
   },
 
   settings: {

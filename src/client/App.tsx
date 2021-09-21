@@ -2,6 +2,7 @@ import {
   Route, BrowserRouter as Router, Switch, Redirect,
 } from 'react-router-dom';
 import { useState } from 'react';
+import { BootswatchSelect } from 'react-bootswatch-select';
 import { Modal } from 'react-bootstrap';
 import Navbar from './components/Navbar';
 import { useAxios } from './helpers/axios';
@@ -16,6 +17,7 @@ import SearchView from './pages/SearchView';
 import modalContext, { modalType } from './helpers/modal-context';
 import './app.scss';
 import HistoryView from './pages/HistoryView';
+import CreateView from './pages/CreateView';
 
 function App(): JSX.Element {
   // Asks the server for the loggedIn staus
@@ -41,6 +43,7 @@ function App(): JSX.Element {
             <Route exact path="/search" component={SearchView} />
             <Route exact path="/saved" component={SavedView} />
             <Route exact path="/history" component={HistoryView} />
+            <Route exact path="/create" component={CreateView} />
             <Route exact path="/"><Redirect to="/explore" /></Route>
           </Switch>
         </Router>
@@ -49,8 +52,7 @@ function App(): JSX.Element {
           show={modal.show}
           onHide={() => { setModal({ show: false, element: modal.element }); }}
           dialogAs={modal.element}
-        >
-        </Modal>
+        />
       </modalContext.Provider>
     </loggedInContext.Provider>
   );

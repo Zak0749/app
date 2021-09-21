@@ -1,7 +1,9 @@
 import {
   Row, Modal, Placeholder, Alert,
 } from 'react-bootstrap';
-import { useContext, useEffect, useState } from 'react';
+import {
+  FC, useContext, useEffect, useState,
+} from 'react';
 import { useAxios } from '../helpers/axios';
 import { User } from '../..';
 import { QuizCard, QuizCardPlaceholder } from '../components/QuizCard';
@@ -9,7 +11,7 @@ import loggedInContext from '../helpers/logged-in-context';
 import modalContext from '../helpers/modal-context';
 import LoginView from './LoginView';
 
-function SessionView() {
+const SessionView: FC = () => {
   const [{ data, error, loading }] = useAxios<User>({
     method: 'GET',
     url: '/session',
@@ -96,6 +98,6 @@ function SessionView() {
       </Modal.Body>
     </Modal.Dialog>
   );
-}
+};
 
 export default SessionView;

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import {
   Alert,
   Form, ListGroup, ListGroupItem,
@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { Quiz, User } from '../..';
 import { useAxios } from '../helpers/axios';
 
-function SearchView() {
+const SearchView: FC = () => {
   const [term, setTerm] = useState('');
 
   const [{ data, error }, fetch] = useAxios<{quizzes: Quiz[], users: User[]}>({
@@ -72,6 +72,6 @@ function SearchView() {
       }
     </div>
   );
-}
+};
 
 export default SearchView;

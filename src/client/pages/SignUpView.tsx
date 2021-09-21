@@ -16,7 +16,7 @@ const schema = yup.object().shape({
   emoji: yup.string().required().matches(/\p{Emoji}/gu, 'must be an emoji'),
 });
 
-function SignUpView() {
+const SignUpView = () => {
   const [, setModal] = useContext(modalContext);
 
   return (
@@ -152,6 +152,6 @@ function SignUpView() {
       </Modal.Body>
     </Modal.Dialog>
   );
-}
+};
 
 export default SignUpView;

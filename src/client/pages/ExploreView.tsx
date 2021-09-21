@@ -1,4 +1,5 @@
 import {
+  FC,
   useContext, useEffect, useState,
 } from 'react';
 import {
@@ -29,45 +30,39 @@ type ExploreData = {
   popular: Quiz[]
 }
 
-function FeaturedCard({
-  quiz: { title, _id, emoji }, color,
-}: {quiz: Quiz, color:string}) {
-  return (
-    <Card
-      style={{
-        width: '15rem', backgroundColor: `var(--bs-${color})`,
-      }}
-      className="m-2"
-    >
-      <Link to={`/quiz/${_id}`} className="text-decoration-none text-white">
-        <div className="text-center" style={{ fontSize: '100px' }}>{emoji}</div>
-        <Card.Body>
-          <Card.Title className="fs-3 fw-bold">
-            {title}
-            {color}
-          </Card.Title>
-        </Card.Body>
-      </Link>
-    </Card>
-  );
-}
-
-function FeaturedCardPlacholder({ color }: {color:string}) {
-  return (
-    <Card style={{ width: '15rem', backgroundColor: `var(--bs-${color})` }} className="m-2">
+const FeaturedCard: FC<{quiz: Quiz, color:string}> = ({ quiz: { title, _id, emoji }, color }) => (
+  <Card
+    style={{
+      width: '15rem', backgroundColor: `var(--bs-${color})`,
+    }}
+    className="m-2"
+  >
+    <Link to={`/quiz/${_id}`} className="text-decoration-none text-white">
+      <div className="text-center" style={{ fontSize: '100px' }}>{emoji}</div>
       <Card.Body>
-        <Placeholder className="text-center" animation="glow"><Placeholder style={{ minWidth: '12rem', minHeight: '150px' }} /></Placeholder>
-        <Placeholder as={Card.Title} animation="glow">
-          <Placeholder xs={8} />
-          {' '}
-          <Placeholder xs={4} />
-        </Placeholder>
+        <Card.Title className="fs-3 fw-bold">
+          {title}
+          {color}
+        </Card.Title>
       </Card.Body>
-    </Card>
-  );
-}
+    </Link>
+  </Card>
+);
 
-function ExploreView(): JSX.Element {
+const FeaturedCardPlacholder: FC<{ color: string }> = ({ color }) => (
+  <Card style={{ width: '15rem', backgroundColor: `var(--bs-${color})` }} className="m-2">
+    <Card.Body>
+      <Placeholder className="text-center" animation="glow"><Placeholder style={{ minWidth: '12rem', minHeight: '150px' }} /></Placeholder>
+      <Placeholder as={Card.Title} animation="glow">
+        <Placeholder xs={8} />
+        {' '}
+        <Placeholder xs={4} />
+      </Placeholder>
+    </Card.Body>
+  </Card>
+);
+
+const ExploreView: FC = () => {
   // Gets the explore data from the server
   const [{ data, loading, error }] = useAxios<ExploreData>({
     method: 'GET',
@@ -144,7 +139,7 @@ function ExploreView(): JSX.Element {
             <>
               <h3 className="mt-3">For You</h3>
               <Row className="flex-nowrap overflow-scroll">
-                {data.forYou.map(() => <QuizCardPlaceholder />)}
+                {data.forYou.map((quiz) => <QuizCard quiz={quiz} />)}
               </Row>
             </>
           )
@@ -157,6 +152,6 @@ function ExploreView(): JSX.Element {
       </Row>
     </div>
   );
-}
+};
 
 export default ExploreView;

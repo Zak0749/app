@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Alert, Placeholder, Row } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import { Category } from '../..';
 import { QuizCard, QuizCardPlaceholder } from '../components/QuizCard';
 import { useAxios } from '../helpers/axios';
 
-function CategoryView(): JSX.Element {
+const CategoryView: FC = () => {
   // The id provided in the url
   const { id } = useParams<{ id: string }>();
 
@@ -51,6 +51,6 @@ function CategoryView(): JSX.Element {
       </Row>
     </div>
   );
-}
+};
 
 export default CategoryView;

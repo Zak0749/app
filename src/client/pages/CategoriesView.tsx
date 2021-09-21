@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import {
   Alert, Card, Placeholder, Row,
 } from 'react-bootstrap';
@@ -6,27 +6,23 @@ import { Link } from 'react-router-dom';
 import { Category } from '../..';
 import { useAxios } from '../helpers/axios';
 
-function CategoryCard({ category }: {category:Category}) {
-  return (
-    <Card className="m-2" style={{ width: '18rem' }}>
-      <Link to={`/category/${category._id}`} className="text-decoration-none text-body ">
-        <Card.Body>{category.title}</Card.Body>
-      </Link>
-    </Card>
-  );
-}
+const CategoryCard: FC<{category:Category}> = ({ category }) => (
+  <Card className="m-2" style={{ width: '18rem' }}>
+    <Link to={`/category/${category._id}`} className="text-decoration-none text-body ">
+      <Card.Body>{category.title}</Card.Body>
+    </Link>
+  </Card>
+);
 
-function CategoryCardPlaceholder() {
-  return (
-    <Card className="m-2" style={{ width: '18rem' }}>
-      <Placeholder as={Card.Body} animation="glow">
-        <Placeholder xs={6} />
-      </Placeholder>
-    </Card>
-  );
-}
+const CategoryCardPlaceholder: FC = () => (
+  <Card className="m-2" style={{ width: '18rem' }}>
+    <Placeholder as={Card.Body} animation="glow">
+      <Placeholder xs={6} />
+    </Placeholder>
+  </Card>
+);
 
-function CategoriesView(): JSX.Element {
+const CategoriesView : FC = () => {
   // Gets the categories from the server
   const [{ data, loading, error }] = useAxios<Category[]>({
     method: 'GET',
@@ -64,6 +60,6 @@ function CategoriesView(): JSX.Element {
       <Row>{data.map((category) => <CategoryCard category={category} />)}</Row>
     </div>
   );
-}
+};
 
 export default CategoriesView;

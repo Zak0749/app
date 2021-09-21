@@ -1,13 +1,11 @@
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import {
   Button, Card, Col, Row, ProgressBar, Modal, CloseButton,
 } from 'react-bootstrap';
 import { Answer, Question, Quiz } from '../..';
 import FinishedView from './FinishedView';
 
-function AnswerCard({
-  answer, chosen, choose,
-}: { answer: Answer, choose: (a: Answer) => void, chosen: Answer | undefined }) {
+const AnswerCard: FC<{ answer: Answer, choose: (a: Answer) => void, chosen: Answer | undefined }> = ({ answer, chosen, choose }) => {
   const bg = chosen ? answer.correct ? 'success' : 'danger' : '';
   const ifChosenStyle = chosen ? chosen === answer ? { transform: 'scale(1.1)' } : { transform: 'scale(0.9)' } : {};
   return (
@@ -15,18 +13,11 @@ function AnswerCard({
       <Card.Body>{answer.body}</Card.Body>
     </Card>
   );
-}
+};
 
-function QuestionView({
+const QuestionView: FC<{ quiz: Quiz, index: number, setIdx: React.Dispatch<React.SetStateAction<number>>, answers: Answer[], setAnswers: React.Dispatch<React.SetStateAction<Answer[]>>, progress: number, }> = ({
   quiz, index, setIdx, answers, setAnswers, progress,
-}: {
-  quiz: Quiz,
-  index: number,
-  setIdx: React.Dispatch<React.SetStateAction<number>>
-  answers: Answer[],
-  setAnswers: React.Dispatch<React.SetStateAction<Answer[]>>,
-  progress: number,
-}) {
+}) => {
   const [question, setQuestion] = useState<Question>(quiz.questions[index]);
   const [chosenAns, setAns] = useState<Answer | undefined>(undefined);
   const [fin, setFin] = useState(false);
@@ -78,11 +69,11 @@ function QuestionView({
       </div>
     </div>
   );
-}
+};
 
-function PlayView({
+const PlayView: FC<{ quiz: Quiz, startInx: number, close: (a:Answer[]) => void, progress: number }> = ({
   quiz, startInx, close, progress,
-}: { quiz: Quiz, startInx: number, close: (a:Answer[]) => void, progress: number }) {
+}) => {
   const [index, setInx] = useState(startInx);
   const [answers, setAnswers] = useState<Answer[]>(Array.from({ length: progress / quiz.questions.length }, () => ({ body: '', correct: null })));
 
@@ -101,6 +92,6 @@ function PlayView({
       </Modal.Body>
     </>
   );
-}
+};
 
 export default PlayView;

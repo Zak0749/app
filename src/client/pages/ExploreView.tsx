@@ -42,7 +42,6 @@ const FeaturedCard: FC<{quiz: Quiz, color:string}> = ({ quiz: { title, _id, emoj
       <Card.Body>
         <Card.Title className="fs-3 fw-bold">
           {title}
-          {color}
         </Card.Title>
       </Card.Body>
     </Link>
